@@ -1,0 +1,94 @@
+
+OBLIQUITY: 23.50 degrees
+
+
+**LATITUDE GRID DATA**
+          x      dx    latitude(rad)  latitude(deg)
+    0  -1.000   0.004     -1.571        -90.0
+    1  -0.996   0.030     -1.484        -85.0
+    2  -0.966   0.060     -1.309        -75.0
+    3  -0.906   0.087     -1.134        -65.0
+    4  -0.819   0.112     -0.960        -55.0
+    5  -0.707   0.134     -0.785        -45.0
+    6  -0.574   0.151     -0.611        -35.0
+    7  -0.423   0.164     -0.436        -25.0
+    8  -0.259   0.172     -0.262        -15.0
+    9  -0.087   0.174     -0.087         -5.0
+   10   0.087   0.172      0.087          5.0
+   11   0.259   0.164      0.262         15.0
+   12   0.423   0.151      0.436         25.0
+   13   0.574   0.134      0.611         35.0
+   14   0.707   0.112      0.785         45.0
+   15   0.819   0.087      0.960         55.0
+   16   0.906   0.060      1.134         65.0
+   17   0.966   0.030      1.309         75.0
+   18   0.996   0.004      1.484         85.0
+   19   1.000   0.000      1.571         90.0
+
+SUMMARY
+   planet average temperature = 317.585 Kelvin
+   planet average albedo =   0.051
+   planet average insolation = 138.684 Watts/m^2
+   planet average outgoing infrared = 121.341 Watts/m^2
+   seasonal-average weathering rate =  2.16485E-20 g/year
+   co2 partial pressure =  3.83291E+00 bars
+   surface water vapor % (by volume) =   5.141
+   total surface pressure =  5.09469E+00 bars
+   thermal diffusion coefficient (D) =  1.26830E-02 Watts/m^2 K
+   convergence to final temperature profile in  4.09204E+08 seconds
+   calculation completed after 199 orbits
+
+ZONAL STATISTICS
+ latitude(deg)  ave temp(K)  min temp(K)  @dec(deg)  max temp(K)  @dec(deg)  seas.amp(K)
+
+OUTPUT FILES
+    -85.          239.994      238.283      -7.29      241.374      -7.59        1.546
+    -75.          247.382      246.514      -5.73      248.244      -5.74        0.865
+    -65.          264.614      264.481      -2.59      264.773      -0.57        0.146
+    -55.          286.384      286.257       0.58      286.565       0.03        0.154
+    -45.          308.158      308.040       3.33      308.348       0.03        0.154
+    -35.          324.729      324.629       4.87      324.896       0.03        0.134
+    -25.          335.365      335.288       6.28      335.495       0.03        0.103
+    -15.          341.546      341.495       8.96      341.636       0.03        0.070
+     -5.          344.315      344.288       0.06      344.372       0.03        0.042
+      5.          344.314      344.262       0.06      344.347       0.03        0.043
+     15.          341.555      341.465       0.06      341.606     -13.06        0.070
+     25.          335.389      335.257       0.06      335.464      -9.38        0.103
+     35.          324.775      324.608       0.06      324.875      -7.35        0.133
+     45.          308.235      308.047       0.06      308.355      -5.49        0.154
+     55.          286.490      286.308       0.06      286.615      -2.59        0.154
+     65.          264.682      264.526       2.58      264.818       0.58        0.146
+     75.          247.444      246.564       5.71      248.289       5.75        0.863
+     85.          240.051      238.367       7.33      241.407       7.60        1.520
+
+ICE LINES (Tave = 263K)
+  ice-line latitude = -65.8 degrees.
+  ice-line latitude =  65.9 degrees.
+
+CO2 CONDENSATION
+  planet average co2 ice coverage = *****
+
+GEOGRAPHIC DATA
+planet ocean fraction: 1.0
+coast latitude:   0.0
+geography: 4
+number of belts: 18
+  latitude of belt center  belt ocean fraction
+           -85.0                   1.000
+           -75.0                   1.000
+           -65.0                   1.000
+           -55.0                   1.000
+           -45.0                   1.000
+           -35.0                   1.000
+           -25.0                   1.000
+           -15.0                   1.000
+            -5.0                   1.000
+             5.0                   1.000
+            15.0                   1.000
+            25.0                   1.000
+            35.0                   1.000
+            45.0                   1.000
+            55.0                   1.000
+            65.0                   1.000
+            75.0                   1.000
+            85.0                   1.000
