@@ -1,0 +1,20 @@
+! This is the input file for the EBM
+
+seasonflag:      1               ! flag: if 1, seasons are turned on
+igeog:           1
+icoldflag:       0
+Pdry:            1.              ! surface pressure of everything else (e.g. N2) minus H2O (bar,default for Earth = 1.)
+pco2i:           3.3e-4
+lday:            86400           ! length of a planetary day in seconds (Earth's = 86,400) 
+g:               9.81            ! gravitational acceleration (m/s^2; default for Earth = 9.81)
+a0:              1.0
+ecc:		    0.0     ! orbital eccentricity (0.016708617 for Earth)
+peri:            76.25           ! longitude of perihelion wrt. vernal equinox (degrees)(Earth, 76.25 degrees).. Look this up
+obl:             23.5
+ocean:           0.7
+groundalb:	    0.22            ! base land surface albedo (default 0.22 for Earth (Manabe and Wetherald (1967) and also for Mars)
+STAR:	    	'Sun'           ! Star type(others , F0, K1, M5)
+smass:           1.0             ! stellar mass (in terms of solar units)(F0 = 1.5, Sun = 1, K2 = 0.79, M0 = 0.5, M5 = 0.15, M8 = 0.08)
+tend:            7.e13           ! total calculation length (seconds).. some arbitrarily super high number(e.g. 7.e12)
+
+ 
