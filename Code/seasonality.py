@@ -15,7 +15,7 @@ import subprocess
 # We only have to change these 3 parameters
 start = ["Cold"] # "Cold" or "Warm"
 STAR = ["Sun"]
-obl = ["0."]
+obl = ["23.5"]
 
 ocean = ["0.7"]
 igeog = ["1"]
@@ -28,10 +28,10 @@ else:
 
 if STAR == ["Sun"]: 
     smass = ["1.0"]
-    a0 = ["1.45"]
+    a0 = ["1.25"]
 else:
-    smass = ["0.6"]
-    a0 = ["0.6"]  
+    smass = ["1.5"]
+    a0 = ["2.5"]  
 
 
 with open("input_ebm.dat", "r") as f:
@@ -44,8 +44,8 @@ var = ["icoldflag","obl","a0","pco2i","ocean","igeog","STAR","smass"]
 n=0
 
 for i in itertools.product(icoldflag,obl,a0,pco2i,ocean,igeog,STAR,smass):
-    a,b,c,d,e,f,g,h = i        
-    print i
+    a,b,c,d,e,f,g,h = i    
+    print (i)    
     with open("input_ebm.dat", "r") as f:
         main = f.read()
         for j, line in enumerate(splitfile):
@@ -75,7 +75,7 @@ for i in itertools.product(icoldflag,obl,a0,pco2i,ocean,igeog,STAR,smass):
         
         gl_co2ice = df.iloc[:,0]        
         gl_co2ice = np.array(gl_co2ice)
-        time = df.iloc[:,1]
+        time = df.iloc[:,2]
         time = np.array(time)
         
         colors = ['crimson','dodgerblue','grey','green']

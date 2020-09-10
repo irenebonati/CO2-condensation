@@ -828,6 +828,8 @@ endif
 
 !----------------------------------------------------------------------c
 !  CO2 CLOUDS/ICE (Determines if atmospheric conditions allow for CO2 cloud/ice formation and says where they are)
+	if (last.eq.1) then  ! If last eq. 1 ONLY CHECKS FOR CO@ CLOUDS/ICE AT LAST ORBIT/STEP 
+	 	  
 	  
 	  K1 = tempstrat(TL, PR)
 	  K2 = tempstrat(TR, PR)
@@ -892,15 +894,14 @@ endif
         imco2i(k) = 0  ! only atmospheric co2 ices need to be initialized after each time step..c-rr 6/5/2019
 		ccloud(k) = 0. ! if no CO2 condensing, CO2 clous are equal to zero
 		
-		if ((last.eq.1).and.(pco2flag.eq.1))then   ! wait til convergence
-		pco2i = ann_pco2ave
-		pco2flag = 0
-		endif
+!		if ((last.eq.1).and.(pco2flag.eq.1))then   ! wait til convergence
+!		pco2i = ann_pco2ave
+!		pco2flag = 0
+!		endif
 		
         if ((hpco2.ge.psat).and.(htemp.lt.216.56)) then      !**co2 ices form
         imco2i(k) = 1  ! this labels which latitude CO2 ices form. 
-        !ccloud(k) = 0.5
-        ccloud(k) = 0.
+        ccloud(k) = 0.5
         
         cloudir(k) = -0.0
         fcloud(k) = ccloud(k)
@@ -940,7 +941,9 @@ endif
 		
        enddo ! ends do  while of htemp and tstrat loop!!
 	  
-!=============================================================================	  
+!=============================================================================	 
+
+			endif ! ends last logic for CO2 clouds/ice only checking last step/orbit 
 	   
 !       LOGIC FOR CO2 ICE CONDENSATION ON SURFACE
 
@@ -1321,17 +1324,25 @@ sumnewice = 0.
       ann_fracd0ave = fracd0avesum/nstep
 
 ! need to refill atmosphere at the poles if co2 collapses    
-sumpco2 = 0.  ! At the end of every year set this summing pcO2 term to zero.
+sumpco2 = 0.d0  ! At the end of every year set this summing pcO2 term to zero.
 ! Don't allow that latitude bands that go to pCO2 near 0, stay zero. Rest of atmosphere should be filling in that void. Assumes that atmosphere re-equlibrates its atmospheric pressure every year
 !=======================================================c-rr 8/6/2019
-                 if((pco2(k)).le.(0.1*ann_pco2ave))then
-                   do k = 1,nbelts
-                   sumpco2 = sumpco2 + pco2(k)*area(k)
-                   enddo
+! c-rr 9/9/2020 AS LONG AS SOME PORTION OF POLES ARE CONDENSING...  
+                 if((imco2s(34).eq.1).or.(imco2s(35).eq.1).or.(imco2s(36).eq.1).or.(imco2s(1).eq.1).or.(imco2s(2).eq.1).or.(imco2s(3).eq.1))then   
+                        do k = 1,nbelts
+                        sumpco2 = sumpco2 + pco2(k)*area(k)  ! summing up pCO2 in all latitude bands
+                       enddo
 
-                 do k = 1,nbelts
-                 pco2(k) = sumpco2
-!                 pause
+! Then to check that the pressures have been equilibrated across the planet...
+                      do k = 1,nbelts
+                      pco2(k) = sumpco2  ! assigning same total CO2 pressure to every latitude band
+                      enddo
+
+                 endif
+                 
+                 if (last.eq.1) then
+                 do k=1,nbelts
+                 print *,pco2(k)
                  enddo
                  endif
 !=======================================================
