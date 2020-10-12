@@ -941,9 +941,7 @@ endif
 		
        enddo ! ends do  while of htemp and tstrat loop!!
 	  
-!=============================================================================	 
-
-			endif ! ends last logic for CO2 clouds/ice only checking last step/orbit 
+!=============================================================================	  
 	   
 !       LOGIC FOR CO2 ICE CONDENSATION ON SURFACE
 
@@ -1029,6 +1027,8 @@ endif
                 endif
             endif	 
 !=====================================================================================	
+
+endif ! ends last logic for CO2 clouds/ice only checking last step/orbit
                 
 	   ! QUADRILINEAR INTERPOLATION FOR PLANETARY ALBEDO. 
        ! Valid for 10^-5 < pco2 < 35 bars, 150 < T < 390 K, 0.0 < surfalb < 1, and 0 < z < 90 degrees for the Sun. 	   
@@ -1537,7 +1537,7 @@ sumpco2 = 0.d0  ! At the end of every year set this summing pcO2 term to zero.
      write(modelout,772) ann_co2iceave
      write(modelout,773) ((pco2i - ann_pco2ave)/pco2i)*100.
  772  format(2x,'planet average co2 ice cloud coverage = ',f5.3) 
- 773  format(2x,'atmospheric CO2 % loss to surface = ',f6.3) 
+ 773  format(2x,'atmospheric CO2 % loss to surface = ',f5.3) 
 
 
 !  GEOGRAPHY INFORMATION 
