@@ -828,7 +828,7 @@ endif
 
 !----------------------------------------------------------------------c
 !  CO2 CLOUDS/ICE (Determines if atmospheric conditions allow for CO2 cloud/ice formation and says where they are)
-	if (last.eq.1) then  ! If last eq. 1 ONLY CHECKS FOR CO@ CLOUDS/ICE AT LAST ORBIT/STEP 
+	if (last.eq.1) then  ! If last eq. 1 ONLY CHECKS FOR CO@ CLOUDS/ICE AT LAST ORBIT/STEP HERE STARTS THE LOGIC OF CO2
 	 	  
 	  
 	  K1 = tempstrat(TL, PR)
@@ -941,7 +941,8 @@ endif
 		
        enddo ! ends do  while of htemp and tstrat loop!!
 	  
-!=============================================================================	  
+!=============================================================================	 
+!endif ! ends last logic for CO2 clouds/ice only checking last step/orbit
 	   
 !       LOGIC FOR CO2 ICE CONDENSATION ON SURFACE
 
@@ -1027,9 +1028,9 @@ endif
                 endif
             endif	 
 !=====================================================================================	
-
-endif ! ends last logic for CO2 clouds/ice only checking last step/orbit
-                
+   
+   	endif ! ends last logic for CO2 clouds/ice only checking last step/orbit 
+             
 	   ! QUADRILINEAR INTERPOLATION FOR PLANETARY ALBEDO. 
        ! Valid for 10^-5 < pco2 < 35 bars, 150 < T < 390 K, 0.0 < surfalb < 1, and 0 < z < 90 degrees for the Sun. 	   
        as = surfalb(k)  
@@ -2084,18 +2085,3 @@ dimension :: latrad(nbelts + 1), lat(nbelts + 1), midlatrad(nbelts), &
 !------------------------------------------------------------------
 !     Subroutine for numerical integration from Numerical Recipes
 !------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

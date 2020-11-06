@@ -1,4 +1,4 @@
-ig#!/usr/bin/env python2
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jun 25 13:50:12 2019
@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv('out/model_earthJanuary.out', header=None)
+df = pd.read_csv('out/model_235.out', header=None)
 df = pd.DataFrame(df[0].str.split(' ').tolist())
 
 # Average temperature from text file
@@ -55,7 +55,7 @@ for i in range(len(tgrad)):
     Flam90[i] = 2*np.pi*R**2*D*(1 - x[i]**2)*tgrad[i]
     Flam90[i] = Flam90[i]/1e15
     
-df = pd.read_csv('out/model_0January.out', header=None)
+df = pd.read_csv('out/model_0.out', header=None)
 df = pd.DataFrame(df[0].str.split(' ').tolist())
 
 # Average temperature from text file
