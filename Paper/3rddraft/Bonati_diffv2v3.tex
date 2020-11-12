@@ -1,0 +1,494 @@
+% mnras_template.tex 
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL manuscript_v2.tex   Mon Aug  3 05:51:54 2020
+%DIF ADD manuscript_v3.tex   Mon Oct 26 01:51:32 2020
+%
+% LaTeX template for creating an MNRAS paper
+%
+% v3.0 released 14 May 2015
+% (version numbers match those of mnras.cls)
+%
+% Copyright (C) Royal Astronomical Society 2015
+% Authors:
+% Keith T. Smith (Royal Astronomical Society)
+
+% Change log
+%
+% v3.0 May 2015
+%    Renamed to match the new package name
+%    Version number matches mnras.cls
+%    A few minor tweaks to wording
+% v1.0 September 2013
+%    Beta testing only - never publicly released
+%    First version: a simple (ish) template for creating an MNRAS paper
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic setup. Most papers should leave these options alone.
+\documentclass[fleqn,usenatbib]{mnras}
+
+% MNRAS is set in Times font. If you don't have this installed (most LaTeX
+% installations will be fine) or prefer the old Computer Modern fonts, comment
+% out the following line
+\usepackage{newtxtext,newtxmath}
+% Depending on your LaTeX fonts installation, you might get better results with one of these:
+%\usepackage{mathptmx}
+%\usepackage{txfonts}
+
+% Use vector fonts, so it zooms properly in on-screen viewing software
+% Don't change these lines unless you know what you are doing
+\usepackage[T1]{fontenc}
+
+% Allow "Thomas van Noord" and "Simon de Laguarde" and alike to be sorted by "N" and "L" etc. in the bibliography.
+% Write the name in the bibliography as "\VAN{Noord}{Van}{van} Noord, Thomas"
+\DeclareRobustCommand{\VAN}[3]{#2}
+\let\VANthebibliography\thebibliography
+\def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
+
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+
+% Only include extra packages if you really need them. Common packages are:
+\usepackage{graphicx}	% Including figure files
+\usepackage{amsmath}	% Advanced maths commands
+\usepackage{amssymb}	% Extra maths symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+
+% Please keep new commands to a minimum, and use \newcommand not \def to avoid
+% overwriting existing commands. Example:
+%\newcommand{\pcm}{\,cm$^{-2}$}	% per cm-squared
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+
+% Title of the paper, and the short title which is used in the headers.
+% Keep the title short and informative.
+\title[$CO_{\mathrm{2}}$ condensation on rocky planets]{The influence of surface $CO_{\mathrm{2}}$ condensation on the evolution of warm and cold rocky planets orbiting Sun-like stars}
+
+% The list of authors, and the short list which is used in the headers.
+% If you need two or more lines of authors, add an extra line using \newauthor
+\author[I. Bonati and R. Ramirez]{
+I. Bonati,$^{1}$\thanks{E-mail: irene.bonati@elsi.jp (IB)}
+R. M. Ramirez,$^{1,2}$
+\\
+% List of institutions
+$^{1}$Earth-Life Science Institute, Tokyo Institute of Technology, Tokyo, Japan\\
+$^{2}$Space Science Institute, Boulder, Colorado,USA\\
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2020}
+
+% Don't change these lines
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF BOLD PREAMBLE %DIF PREAMBLE
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\bf #1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{} %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\begin{document}
+\definecolor{greenblue}{RGB}{0,127,127}
+\definecolor{greenish}{RGB}{104, 159, 56}
+\newcommand{\add}[1]{\textcolor{greenblue}{#1}}
+\newcommand{\irene}[1]{\textcolor{greenblue}{\textit{(Irene: #1)}}}
+\newcommand{\ramses}[1]{\textcolor{greenish}{\textit{(Ramses: #1)}}}
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+\newcommand{\textb}[1]{\textcolor{greenblue}{#1}}
+\newcommand{\textg}[1]{\textcolor{greenish}{#1}}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+% Abstract of the paper
+\begin{abstract}
+% The abstract should briefly describe the aims, methods, and main results of the paper.
+% It should be a single paragraph not more than 250 words (200 words for Letters).
+%DIF <  No references should appear in the abstract.
+The habitable zone is the region around a star where standing bodies of liquid water can be stable on a planetary surface. Its width is often assumed to be dictated by the efficiency of the carbonate-silicate cycle, which has maintained habitable surface conditions on our planet for billions of years. This cycle may be inhibited by surface condensation of significant amounts of $CO_{\mathrm{2}}$ ice, which is likely to occur on distant planets containing high enough levels of atmospheric $CO_{\mathrm{2}}$. Such a process could permanently trap $CO_{\mathrm{2}}$ ice within the planet, diminishing its long-term habitability. Recent work has modeled this scenario for initially cold and icy planetary bodies orbiting our Sun. Here, we use an advanced energy balance model to consider both initially warm and cold rapidly-rotating planets orbiting F - K stars. We show that the range of orbital distances where significant surface $CO_{\mathrm{2}}$ ice condensation occurs is significantly reduced for warm start planets. Star type does not affect this conclusion, although surface $CO_{\mathrm{2}}$ ice condenses over a larger fraction of the habitable zone around hotter stars. Our warm start simulations are thus consistent with 1-D model predictions, suggesting that the classical habitable zone limits in those earlier models are still valid. We also find that our cold start simulations exhibit trends that are consistent with those of previous work for the Sun although we now extend the analysis to other star types.    
+\end{abstract}
+
+\begin{keywords}
+planets and satellites: terrestrial planets -- planets and satellites:atmosphere -- planets and satellites: physical evolution
+\end{keywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+During the course of its evolution, Earth is thought to have exhibited mostly warm surface conditions that were temporarily interrupted by a few sporadic cooling episodes, triggered by processes taking place in its interior, atmosphere, and host star. The resultant climatic changes can manifest as mild oscillations, or even as extreme snowball events capable of engulfing Earth's entire surface in ice \citep{kirschvink1992,Hoffman1342}. Nevertheless, the carbonate-silicate cycle, which maintains the balance of atmospheric $CO_{\mathrm{2}}$ between the atmosphere and the interior, has allowed Earth to escape permanent glaciation and maintain clement surface conditions throughout time \citep{Hoffman1342}.
+
+However, large amounts of atmospheric $CO_{\mathrm{2}}$ on a cold enough planet, like is the case for some depictions of early Mars \citep{Kasting1991,wordsworth2013}, can have a detrimental effect on its habitability. A number of recent studies \citep{Kasting1991,Phumbert2005,Phumbert2011, forget2013,Soto2015, Turbet2017,kadoya_outer_2019} have shown that once $CO_{\mathrm{2}}$ partial pressures exceed the saturation level, and surface temperatures are low enough, significant condensation of $CO_{\rm 2}$ ice can occur at the poles (Figure~\ref{fig:Sketch}). The relatively high Rayleigh scattering of $CO_{\mathrm{2}}$, along with the resultant increase in the planetary albedo, work to enhance the ice-albedo feedback \citep{Kasting1991} and keep the planet cold. Moreover, the high density of $CO_{\mathrm{2}}$ ice with respect to water ice can lead to surface condensation and subsurface sequestration of the former, removing some $CO_{\mathrm{2}}$ from the atmosphere forever. This could result in a permanently glaciated state \DIFdelbegin \DIFdel{. Thus, a decrease in atmospheric $CO_{\rm 2}$  can }\DIFdelend \DIFaddbegin \DIFadd{and }\DIFaddend prevent planets from achieving warm states. In that case,  the influence of the carbonate-silicate cycle in sustaining habitability is greatly lessened\DIFaddbegin \DIFadd{, }\DIFaddend if not gone altogether \citep{Turbet2017}.  
+
+While the carbonate-silicate cycle has stabilized surface temperatures over time on Earth, this might not be the case for bodies orbiting other stars and/or located at different orbital distances, and having different atmospheric $CO_{\mathrm{2}}$ inventories. In particular, $CO_{\mathrm{2}}$ pressures at large orbital distances are high enough for surface condensation and Rayleigh scattering to counter the greenhouse effect, directly impacting the width of the classical $CO_{\mathrm{2}}$-$H_{\mathrm{2}}O$ habitable zone \citep{kasting1993,KumarKopparapu2013, Ramirez2018}. \DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend It is therefore important to assess the role of $CO_{\mathrm{2}}$ in determining a given planet's fate. \citet{Turbet2017} have recently addressed this issue by using a 3-D Global Climate Model (GCM) to simulate the evolution of terrestrial planets across the habitable zone, and concluded that bodies initially assumed to be fully frozen remained that way, exhibiting permanent surface $CO_{\mathrm{2}}$ ice condensation at orbital distances as small as \textasciitilde $1.27$~AU from the Sun for an atmospheric $CO_{\mathrm{2}}$ pressure of $1$~bar. In comparison, 1-D calculations suggest that the habitable zone extends to \textasciitilde $1.47$~AU at that $CO_{\mathrm{2}}$ pressure level \citep{kasting1993,KumarKopparapu2013, Ramirez2018}. 
+All of this suggests that $CO_{\mathrm{2}}$ condensation in more advanced climate modeling simulations may have an even more detrimental effect on planetary habitability than previously calculated, possibly decreasing the size of the habitable zone as compared to 1-D modeling simulations.
+
+\citet{Turbet2017} had simulated planets with initially fully-glaciated surface conditions (cold start worlds) orbiting our Sun. In contrast, habitable zone planets that start their evolution warm (warm start worlds) may exhibit a different response to $CO_{\mathrm{2}}$ condensation. Here, we employ an advanced energy balance model (EBM) to investigate the parameter space of surface $CO_{\mathrm{2}}$ condensation for cold and warm rotating planets with different atmospheric $CO_{\mathrm{2}}$ pressures orbiting Sun-like (F - K) stars. We compare the cold and warm start results and discuss the implications for the width of the habitable zone.
+
+\begin{figure}
+	\includegraphics[width=0.83\columnwidth]{Figures/Sketch_idea.pdf}
+    \caption{Schematic representation showing the $CO_{\mathrm{2}}$ sublimation and the polar surface temperature curves as a function of surface temperature and pressure. At the poles, the surface temperature is low enough to drop below the $CO_{\mathrm{2}}$ sublimation temperature. The presence of a sufficiently high amount of atmospheric $CO_{\mathrm{2}}$ can, in turn, drive precipitation of $CO_{\mathrm{2}}$ ice onto the planetary surface. 
+    Such a phenomenon is more unlikely to happen for a small inventory of atmospheric $CO_{\mathrm{2}}$, or when the warming effect of $CO_{\mathrm{2}}$ starts dominating at high surface pressures. Adapted from Figure 1 of \citet{Soto2015}.}
+    \label{fig:Sketch}
+\end{figure}
+
+\section{Methods}
+\label{sec:Methods}
+\subsection{Governing equations}
+We make use of an advanced non-grey energy balance model (EBM), similar to that described in \citet{RamirezLevi2018} and \cite{ramirez2020}, which is itself based on  other similar models (see also \citet{North1979},  \citet{North1981}, \citet{Williams1997}, and \citet{vladilo2013}) to determine the presence of $CO_{\mathrm{2}}$ ice condensation and its influence on the fate of bodies orbiting Sun-like stars. We study the evolution of Earth-like planets assuming cold ($T_{\mathrm{surf}}$=230 K) or warm ($T_{\mathrm{surf}}$=280 K) starts. The EBM is coupled to a 1-D radiative-convective climate model that provides the radiative transfer calculations. For a more detailed explanation of the model, the reader is redirected to \citet{ramirez2020}. We reiterate some of the key details here.
+
+The present model follows the radiative energy balance principle \citep[e.g.,][]{Williams1997}, according to which planets in thermal equilibrium radiate as much energy to space as they receive from their host star. The atmospheric-ocean energy balance is expressed as \citep[e.g.,][]{james1982,Williams1997,batalha2016}: 
+
+\begin{equation}
+\label{ebmeq}
+    C_{\mathrm{p}} \frac{\partial T(x, t)}{\partial t}-\frac{\partial}{\partial x} D\left(1-x^{2}\right) \frac{\partial T(x, t)}{\partial x}+I-L\left (\frac{dM_{\mathrm{col,CO_{\mathrm{2}}}}}{dt}\right )=S(1-A),
+\end{equation}{}
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend where $C_{\mathrm{p}}$ is the effective heat capacity, $T$ is the zonally averaged surface temperature, $x$ is the sine of the latitude, $t$ is time, $D$ is the heat diffusion coefficient (i.e., the latitudinal transport of heat), $I$ is the outgoing infrared flux to space, $S$ is the absorbed fraction of incident solar flux, $L$ is the latent heat flux per unit mass of $CO_{\mathrm{2}}$ (5.9 \ $\cdot$ 10\textsuperscript{5}J/kg; \citet{forget1998}), $M_{\mathrm{col,CO_{\mathrm{2}}}}$ is the column mass of $CO_{\mathrm{2}}$ which sublimates from or condenses onto the planetary surface, and $A$ is the albedo at the top of the atmosphere. Equation \ref{ebmeq} is solved for every time step using a second-order finite difference scheme.
+
+The modeled planets are Earth-sized and are subdivided into 36 five degree wide latitudinal belts with land and ocean coverage similar to present-day Earth (i.e., $70 \%$ oceans and $30 \%$ land). Flat topography is assumed for simplicity. Planets are in circular orbits and the length of day is 24 hours. As per \citet{Turbet2017}, we assume that volcanic outgassing rates at a given stellar flux are always high enough to support stable climates. Thus, our worlds do not undergo limit cycles, which lead to hypothetical oscillations between warm and cold climates for planets with low volcanic outgassing rates \citep{haqq2016limit,paradise2017,kadoya_outer_2019}. We note that the existence of limit cycles is controversial and is based on various weathering and surface albedo assumptions that may not be realistic or applicable in many circumstances \citep{ramirez2017mars,graham-a}.
+
+Our calculations assume that atmospheres are fully-saturated and consist of $1$~bar $N_{\mathrm{2}}$ for a range of atmospheric $CO_{\mathrm{2}}$ pressures. The thermal diffusion coefficient $D$ is calculated using the following scaling relation (with the subscript "$0$" referring to present Earth values):
+
+\begin{equation}
+\label{hdiff}
+    \left(\frac{D}{D_{\mathrm{0}}}\right)=\left(\frac{p}{p_{\mathrm{0}}}\right)\left(\frac{C_{\mathrm{p}}}{C_{\mathrm{p}_{0}}}\right)\left(\frac{m_{\mathrm{0}}}{m}\right)^{2}\left(\frac{\Omega_{0}}{\Omega}\right)^{2}\left(\frac{T_{\mathrm{surf,ave}}}{T_{\mathrm{0}}}\right)^{12},
+\end{equation}
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend where $D_{\mathrm{0}}=0.58$~Wm\textsuperscript{-2}K\textsuperscript{-1}, $C_{\mathrm{p0}}=10^{3}$~g\textsuperscript{-1}kgK\textsuperscript{-1}\DIFdelbegin \DIFdel{)}\DIFdelend , $p$ is the atmospheric pressure ($p_{\mathrm{0}}=1$~bar), $m$ is the atmospheric mass ($m_{\mathrm{0}}=28$~kg), $\Omega$ is the planetary rotation rate ($\Omega_{\mathrm{0}}=7.27 \cdot 10^{\mathrm{-5}}$~rads\textsuperscript{-1}), and $T_{\mathrm{surf,ave}}$ is the annual average surface temperature ($T_{\mathrm{0}}=288$~K). A crude temperature dependence is added to this equation to simulate the importance of latent heat release and transport at high temperatures \citep{Caballero2005a,Rose2017}. The exponent $12$ on the right side of Equation~\ref{hdiff} gives the right latitudinal temperature structure when comparing our results to Figure 1 from \citet{Turbet2017}, which displays an average temperature $T_{\mathrm{surf,ave}} \sim 225$~K. Without this temperature dependence, equator-pole temperature gradients are underestimated and heat transport is overestimated at cold temperatures.
+
+The model is able to distinguish between land, ocean, ice, and clouds. As the atmosphere warms near and above the freezing point, water clouds form, with the latitudinal cloud coverage ($c$) dictated by:
+\begin{equation}
+\label{cloud_coverage}
+    c = \min \left ( 0.72 \log \left( \frac{F_{\mathrm{C}}}{F_{\mathrm{E}}} + 1 \right ),1 \right ).
+\end{equation}
+Here, $F_\mathrm{C}$ is the convective heat flux, $F_\mathrm{E}$ is the convective heat flux for the Earth at $288$~K ($\sim 90$~W/m$^2$). This equation is similar to that used in the Community Atmosphere Model (CAM) GCM \citep{xu1991, yang2014} and yields an Earth-like cloud coverage $c\sim 50 \%$ at a mean surface temperature \DIFdelbegin \DIFdel{$T_{\mathrm{surf}}=288$}\DIFdelend \DIFaddbegin \DIFadd{of $288$}\DIFaddend ~K. \DIFaddbegin \DIFadd{For simplicity, cloud decks do not overlap and an averaged cloud fraction is computed at each latitude. This is an improvement over 1-D models that place such clouds at the surface \citep{kasting1993, KumarKopparapu2013}. 
+}\DIFaddend 
+
+Our modeled $CO_{\mathrm{2}}$ clouds are non-absorbing, and thus radiatively inactive. This is consistent with recent simulations suggesting that their greenhouse effect may be very small in these dense $CO_{\mathrm{2}}$ atmospheres \citep{kitzmann2016}. Even so, our $CO_{\mathrm{2}}$ clouds still impact the planetary albedo, affecting planetary surface temperatures and $CO_{\mathrm{2}}$ precipitation. Following GCM predictions \citep{forget2013}, a cloud coverage $c=50 \%$ is assumed for $CO_{\mathrm{2}}$\DIFdelbegin \DIFdel{clouds forming within a given latitude band. }\DIFdelend \DIFaddbegin \DIFadd{. Such clouds form once temperatures along the adiabat are cold enough for $CO_{\mathrm{2}}$ to condense. Following \citep{Williams1997} we assume that all $CO_{\mathrm{2}}$ clouds form in that layer. 
+}\DIFaddend 
+
+
+For each time step, spanning about $2$ hours of a planet's evolution, the new average surface temperature is updated for every latitude belt following Equation~\ref{ebmeq}, along with the resulting $H_{\mathrm{2}}O$ and $CO_{\mathrm{2}}$ inventories in the atmosphere and surface. The model simulates the entire year, including seasons, using an explicit forward marching numerical scheme to achieve convergence. Such convergence is reached when the average annual surface temperature does not change by more than \textasciitilde$0.1$~K and both $CO_{\mathrm{2}}$ condensation and sublimation rates are balanced. 
+
+To validate our model, we compute the northward heat flux for a planet with $330$~ppm $CO_{\mathrm{2}}$ (i.e., similar to present Earth) and orbiting the Sun at $1$~AU at different obliquities by using the following expression:
+
+\begin{equation}
+    \mathcal{F}_{\mathrm{\lambda}}=2 \pi R \cos \lambda F_{\mathrm{\lambda}}=2 \pi R^{2} D \cos ^{2} \lambda \frac{\partial T}{\partial x},
+\end{equation}
+
+where $\mathcal{F}_{\mathrm{\lambda}}$ is the latitudinal energy transport per unit length, $R$ is the planetary radius, $\lambda$ is the latitude (between $-90^\circ$ and $90^\circ$, and $\frac{\partial T}{\partial x}$ is the temperature gradient between different latitude belts.
+The obtained flux, shown in Figure~\ref{fig:flow}, matches well with similar models used in past studies \citep[e.g.,][]{WilliamsPollard}.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{Figures/Meridional_flow.pdf}
+    \caption{Meridional heat flow for an Earth-like planet  orbiting a Sun-like star at $1$~AU, having an atmospheric pressure of $CO_{\mathrm{2}}$ of $3.3\cdot10^{-4}$~bar and obliquities $0^\circ$, $23.5^\circ$, $45^\circ$, and $90^\circ$. At low obliquities, heat is transported from the equator towards the poles, while transport in the opposite direction is favored at high enough obliquities.}
+    \label{fig:flow}
+\end{figure}
+
+We also track how much surface $CO_{\mathrm{2}}$  condenses into ice, melts, or sublimates at a given latitude and time step. The phase curve of $CO_{\mathrm{2}}$ employed in this model uses established data parameterized from previous 1-D radiative-convective climate models \citep{Kasting1991} and matches very well with modern data \citep{fray_sublimation_2009}. $CO_{\rm 2}$ ice forms at cold enough surface temperatures  and when the saturation pressure is reached.  The albedo of surface $CO_{\rm 2}$ ice (dry ice) in our model is 0.6 \DIFdelbegin \DIFdel{\citet{warren_spectral_1990}}\DIFdelend \DIFaddbegin \DIFadd{\citep{warren_spectral_1990}}\DIFaddend , which is the same value used in \citet{Turbet2017}.
+
+
+\subsection{Initial conditions and parameter space}
+We model the evolution of Earth-sized bodies, orbiting  F0, K5, and solar (G2) stars. We vary the initial $CO_{\mathrm{2}}$ atmospheric pressure, surface temperature (cold and warm start), planetary obliquity, and semi-major axis. The initial conditions are summarized in Table~\ref{tab:ic}. If a planet starts out cold, there are initially no water clouds in the atmosphere. The global surface temperature is set to $T_{\mathrm{surf}}=230$~K, and the land snow fraction is equal to $1$ (i.e., the continents are fully covered in ice). This was done to approximate the initial conditions of \citet{Turbet2017}.
+
+On the other hand, if a planet starts out warm, the surface temperature is set to $T_{\mathrm{surf}}=280$ K, with a land snow fraction of $0.5$. The fractional cloud cover from water vapor is $c_{\mathrm{H_{\mathrm{2}}O}}=0.26$ (resulting from Equation~\ref{ebmeq}). 
+There are no $CO_{\mathrm{2}}$ clouds in the initial step for either case (i.e., $c_{\mathrm{CO_{\mathrm{2}}}}=0$). These starting conditions are meant to approximately simulate the modeling conditions of \citet{Turbet2017}. However, after the initial step, both cloud coverage and surface temperatures are calculated self-consistently. 
+
+We explore different parameters as shown in Table~\ref{tab:parameters}. We do not simulate planets located at larger semi-major axis distances than those showed in Table~\ref{tab:parameters} because modeled surface temperatures at these $CO_{\mathrm{2}}$ pressures are below what is possible for our radiative transfer model ($T_{\mathrm{surf}}=150$~K). Nevertheless, the sampled parameter space is more than sufficient to obtain the overall trends.
+
+\begin{table}
+	\centering
+	\caption{Initial conditions for planets starting out cold and warm.}
+	\label{tab:ic}
+	\begin{tabular}{ccc} 
+		\hline
+		Parameter & \textbf{Cold start} & \textbf{Warm start} \\
+		\hline
+		Surface temperature $T_{\mathrm{surf}}$ [K] & 230 & 280 \\
+		$H_{\mathrm{2}}O$ cloud fraction $c_{\mathrm{H_{\mathrm{2}}O}}$ & 0 & 0.26  \\
+		$CO_{\mathrm{2}}$ cloud fraction $c_{\mathrm{CO_{\mathrm{2}}}}$ & 0 & 0 \\
+		Land snow fraction & 1 & 0.5 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% Similarly to \citet{Turbet2017}, the $CO_{\mathrm{2}}$ clouds in our model do not absorb at any wavelengths, and thus radiatively inactive. However, even though non-absorbing, the $CO_{\mathrm{2}}$ clouds still impact the planetary albedo. Their presence therefore influences the planetary surface temperature and the precipitation of $CO_{\mathrm{2}}$.
+
+\begin{table}
+	\centering
+	\caption{Parameter space investigated in the simulations.}
+	\label{tab:parameters}
+	\begin{tabular}{ccccc}
+		\hline
+		&\multicolumn{1}{c}{Parameter}&\multicolumn{3}{c}{Values}\\
+		\hline
+		&\multicolumn{1}{c}{$CO_{\mathrm{2}}$ partial pressure range [bar]}&\multicolumn{3}{c}{0.01-3.0}\\
+		&\multicolumn{1}{c}{Obliquity [$^{\circ}$] }&\multicolumn{3}{c}{0, 23.5}\\
+		&\multicolumn{1}{c}{}&\multicolumn{1}{c}{\underline{F0 star}}&\multicolumn{1}{c}{\underline{Sun}}&\multicolumn{1}{c}{\underline{K5 star}}\\
+		&\multicolumn{1}{c}{Stellar temperature [K]}&\multicolumn{1}{c}{7200}&\multicolumn{1}{c}{5800}&\multicolumn{1}{c}{4400}\\
+		&\multicolumn{1}{c}{Stellar mass [$M_{\odot}$]}&\multicolumn{1}{c}{1.5}&\multicolumn{1}{c}{1.0}&\multicolumn{1}{c}{0.6}\\
+		&\multicolumn{1}{c}{Stellar luminosity [$L_{\odot}$]}&\multicolumn{1}{c}{4.3}&\multicolumn{1}{c}{1.0}&\multicolumn{1}{c}{0.15}\\
+		&\multicolumn{1}{c}{Semi-major axis range [AU]}&\multicolumn{1}{c}{2.0-3.0}&\multicolumn{1}{c}{1.0-1.5}&\multicolumn{1}{c}{0.4-0.6}\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\section{Results}
+
+\DIFaddbegin \subsection{\DIFadd{Steady-state climate regimes}}
+
+\DIFaddend \begin{figure*}
+	\includegraphics[width=\textwidth]{Figures/Steady_state_all.pdf}
+    \caption{Steady-state solutions reached by warm (ice-free \DIFaddbeginFL \DIFaddFL{body}\DIFaddendFL ) and cold start (fully-glaciated body) planets orbiting F0, Sun-like\DIFaddbeginFL \DIFaddFL{, }\DIFaddendFL and K5-type stars for a range of semi-major axes and initial partial pressures of atmospheric $CO_{\mathrm{2}}$. The modeled planets have an Earth-like continental fraction and an obliquity of $23.5^{\circ}$. The dark and light red regions comprise bodies that are ice-free and partially \DIFaddbeginFL \DIFaddFL{(or fully) }\DIFaddendFL covered in $H_{\mathrm{2}}O$ ice, respectively. The light and dark blue regions represent partially ice-covered and snowball planets\DIFaddbeginFL \DIFaddFL{, respectively, }\DIFaddendFL displaying permanent $CO_{\mathrm{2}}$ ice on their surfaces\DIFdelbeginFL \DIFdelFL{, respectively}\DIFdelendFL . Note: The horizontal scale is different for each host star. Our model predicts similar trends at $0^{\circ}$ obliquity (not shown).} 
+    \label{fig:ss_all}
+\end{figure*}
+
+\DIFdelbegin %DIFDELCMD < \begin{figure*}
+%DIFDELCMD < 	\includegraphics[width=\textwidth]{Figures/Comparison_a0_rev.pdf}
+%DIFDELCMD <     %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Latitudinally averaged surface temperature profiles at the last time step for cold start ($T_{\mathrm{surf}}=230$~K; panel A) and warm start ($T_{\mathrm{surf}}=280$~K; panel B) bodies located at intermediate orbital distances form their host star. Planets have an initial atmospheric $CO_{\mathrm{2}}$ pressure of $1$~bar and obliquities of $0^{\circ}$ (solid lines) and $23.5^{\circ}$ (dashed lines). The colors differentiate between planets orbiting F0, K5, and Sun-like stars at semi-major axes of $2.5$~AU (F0 star), $1.25$~AU (Sun), and $0.53$~AU (K5 star). Final atmospheric $CO_{\rm 2}$ pressures are $1$~bar for planets ending up ice-free (panel B). For fully glaciated planets (panel A) the final average amounts of atmospheric $CO_{\rm 2}$ are $0.87$~bar ($0^{\circ}$) and $0.95$~bar ($23.5^{\circ}$) for bodies orbiting F0 stars, $0.96$~bar ($0^{\circ}$) and $0.992$~bar ($23.5^{\circ}$) for planets orbiting Sun-like stars, and $0.999$~bar ($0^{\circ}$) and $0.996$~bar ($23.5^{\circ}$) for planets orbiting K5 stars. The text in each panel denotes the final converged state  (ice-free or snowball planets with permanent surface $CO_{\mathrm 2}$ ice). Any condensing $CO_{\rm 2}$ is sequestered on the surface as $CO_{\rm 2}$ ice. The model is not accurate for latitudinal temperatures below $T_{\rm surf}=150$ K (dotted) although this does not impact the results or trends in our paper.
+    %DIF < Latitudinally averaged surface temperature at the last time step as a function of latitude for cold start (initial  $T_{\mathrm{surf}}=230$~K; left column) and warm start (initial $T_{\mathrm{surf}}=280$~K; right column) bodies having an initial atmospheric $CO_{\mathrm{2}}$ pressure of $1$~bar. Each row samples a different region of the diagrams shown in Figure~\ref{fig:ss_all}, for planets having obliquities of $0^{\circ}$ (solid lines) and $23.5^{\circ}$ (dashed lines). The colors differentiate between planets orbiting F0, K5, and Sun-like stars at semi-major axes of $2.2$~AU (F0 star), $1.1$~AU (Sun), and $0.45$~AU (K5 star; panels A and B), $2.4$~AU (F0 star), $1.25$~AU (Sun), and $0.53$~AU (K5 star; panels C and D), and $2.75$~AU (F0 star), $1.4$~AU (Sun), and $0.6$~AU (K5 star; panels E and F). The colored text in each panel denotes the final state of all worlds contained in it (ice-free or snowball planets). Surface temperatures at polar latitudes are dotted as the model reaches surface temperatures that are lower than $150$~K.
+    }}
+    %DIFAUXCMD
+%DIFDELCMD < \label{fig:comp_a0}
+%DIFDELCMD < \end{figure*}
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\subsection{\DIFdel{Steady-state climate regimes}}
+%DIFAUXCMD
+\addtocounter{subsection}{-1}%DIFAUXCMD
+%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend We allow the $CO_{\mathrm{2}}$ partial pressure to evolve until $CO_{\mathrm{2}}$ sublimation and condensation rates are balanced. Figure~\ref{fig:ss_all} shows the steady-state climate regimes obtained for initially cold and warm Earth-sized bodies having an obliquity of $23.5^{\circ}$ and orbiting different types of stars (solar twin-G2, as well as F0 and K5 stars), as a function of their orbital distance and initial atmospheric $CO_{\mathrm{2}}$ pressure. We distinguish between four final scenarios: In the first one, the planet is completely ice-free (dark red areas in Figure~\ref{fig:ss_all}). In the second one, the planet is partially \DIFaddbegin \DIFadd{(or fully) }\DIFaddend covered in $H_{\mathrm{2}}O$ ice (light red areas in Figure~\ref{fig:ss_all}). In the third one, the planet is partially covered in both $H_{\mathrm{2}}O$ ice and (permanent) $CO_{\mathrm{2}}$ ice at the poles (light blue areas in Figure~\ref{fig:ss_all}). In the last one, the planet is fully ice-covered and permanent $CO_{\mathrm{2}}$ ice is present on the planetary surface (blue areas in Figure~\ref{fig:ss_all}. Permanent $CO_{\mathrm{2}}$ ice forms when condensation fluxes throughout the year outpace sublimation fluxes. 
+
+As expected, surface $CO_{\mathrm{2}}$ ice condensation occurs at smaller orbital distances for cold start planets (left panels in Figure~\ref{fig:ss_all}) as compared to bodies that start out warm (right panels in Figure~\ref{fig:ss_all}).
+For the solar case, the $1$~bar $CO_{\mathrm{2}}$ cold start scenario exhibits surface $CO_{\mathrm{2}}$ ice condensation starting from orbital distances as small as \DIFdelbegin \DIFdel{$\sim1.2$}\DIFdelend \DIFaddbegin \DIFadd{$\sim1.22$}\DIFaddend ~AU, which compares favorably to the $\sim 1.27$~AU value found by \citet{Turbet2017}. The equivalent distances for the F0 and K5 stars are $\sim2.4$~AU and $\sim0.52$~AU, respectively.
+In contrast, surface $CO_{\mathrm{2}}$ ice condensation for warm starts does not occur until \DIFdelbegin \DIFdel{$\sim1.38$}\DIFdelend \DIFaddbegin \DIFadd{$\sim1.37$}\DIFaddend ~AU for the $1$~bar $CO_{\mathrm{2}}$ solar case, \DIFdelbegin \DIFdel{almost  $0.2$}\DIFdelend \DIFaddbegin \DIFadd{$0.15$}\DIFaddend ~AU farther out than for the cold start scenario. At this same pressure level, $CO_{\mathrm{2}}$ surface ice starts forming at $\sim2.7$~AU and $\sim0.58$~AU for the F0 and K5 stars, respectively. This is about $0.3$~AU and $0.06$~AU farther out than for the equivalent cold start cases.
+\DIFdelbegin \DIFdel{The distances beyond which surface $CO_{\mathrm{2}}$ ice condensation starts forming are pressure-dependent, as a result of the greenhouse effect of $CO_{\mathrm{2}}$. At higher pressures, surface $CO_{\mathrm{2}}$ ice condensation in both warm and cold start cases occurs farther away from the host star, whereas the opposite takes place at lower pressures.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdel{Moreover, the surface $CO_{\mathrm{2}}$ ice condensation encompasses a larger region for the hotter stars (alternatively, the red region is larger for cooler stars). This is because near-infrared absorption is lower and Rayleigh scattering is higher for planetary atmospheres orbiting hotter stars, cooling the planet and causing $CO_{\mathrm{2}}$ surface ice condensation to occur closer to the star. }\DIFdelend For comparison, 1-D radiative-convective climate modeling simulations predict that planets with a $1$~bar $CO_{\mathrm{2}}$ atmosphere orbiting F0, solar, and K5 stars can \DIFdelbegin \DIFdel{remain habitable }\DIFdelend \DIFaddbegin \DIFadd{display habitable surface conditions }\DIFaddend at distances as far as $\sim 2.75$, $1.47$, and $0.58$~AU, respectively \citep{kasting1993, KumarKopparapu2013,Ramirez2018}, assuming the luminosity values given in Table~\ref{tab:parameters}. These values are only slightly farther out than the most distant extent of the red regions at the $1$~bar level (Figure~\ref{fig:ss_all}). Although nearly the same size, the warm regions in the warm starts still span slightly smaller areas (generally) than predicted in 1-D radiative-convective climate modeling simulations \citep{kasting1993, KumarKopparapu2013,Ramirez2018}. This is because of the EBM's increased ice-albedo feedback.
+
+\DIFaddbegin \DIFadd{The distances beyond which surface $CO_{\mathrm{2}}$ ice condensation starts forming are pressure-dependent, as a result of the greenhouse effect of $CO_{\mathrm{2}}$. At higher pressures, surface $CO_{\mathrm{2}}$ ice condensation in both warm and cold start cases occurs farther away from the host star, whereas the opposite takes place at lower pressures. Moreover, we find that the surface $CO_{\mathrm{2}}$ ice condensation encompasses a larger region for the hotter stars (alternatively, the dark and light red regions are larger for cooler stars). This is because near-infrared absorption is lower and Rayleigh scattering is higher for planetary atmospheres orbiting hotter stars, cooling the planet and causing $CO_{\mathrm{2}}$ surface ice condensation to occur closer to the star.
+}
+
+\DIFaddend A key observation from our cold starts is that a planet cannot escape full glaciation for orbital distances exceeding \DIFdelbegin \DIFdel{$\sim 2.55$}\DIFdelend \DIFaddbegin \DIFadd{$\sim 2.6$}\DIFaddend , $\sim1.33$, and \DIFdelbegin \DIFdel{$\sim0.58$}\DIFdelend \DIFaddbegin \DIFadd{$\sim0.59$}\DIFaddend ~AU for the F0, solar, and K5 star cold start scenarios (Figure~\ref{fig:ss_all}). In these cases, the planet remains glaciated with surface $CO_{\mathrm{2}}$ ice condensation regardless of the atmospheric $CO_{\mathrm{2}}$ content\DIFdelbegin \DIFdel{(Figure~\ref{fig:ss_all})}\DIFdelend . This difference is attributed to the weaker heat transport and higher surface albedo associated with such cold starts. Although \citet{Turbet2017} does not necessarily obtain $CO_{\mathrm{2}}$ surface ice in all of these cases, in agreement with our model, they predict snowball states. 
+\DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend % Similar to what is shown in Figure~\ref{fig:Sketch}, at high enough atmospheric $CO_{\mathrm{2}}$ pressures the greenhouse effect dominates tends to inhibit surface ice condensation. Under these conditions $CO_{\mathrm{2}}$ ice condensation becomes marginal at both obliquities, consistent with trends that were also found in previous work \citep{Soto2015}. 
+
+\subsection{Latitudinal variation of surface temperature and amount of surface $CO_{\rm 2}$ ice}
+\label{sec:surf_temp} 
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{Figures/Comparison_a0_rev.pdf}
+    \caption{\DIFaddFL{Latitudinally averaged surface temperature profiles at the last time step for cold start ($T_{\mathrm{surf}}=230$~K; panel A) and warm start ($T_{\mathrm{surf}}=280$~K; panel B) planets located at intermediate orbital distances form their host star. Bodies have an initial atmospheric $CO_{\mathrm{2}}$ pressure of $1$~bar and obliquities of $0^{\circ}$ (solid lines) and $23.5^{\circ}$ (dashed lines). The colors differentiate between planets orbiting F0, K5, and Sun-like stars at semi-major axes of $2.5$~AU (F0 star), $1.25$~AU (Sun), and $0.53$~AU (K5 star). Final atmospheric $CO_{\rm 2}$ pressures are $1$~bar for planets ending up ice-free (panel B). For fully glaciated planets (panel A) the final average amounts of atmospheric $CO_{\rm 2}$ are $0.999$~bar ($0^{\circ}$) and $0.982$~bar ($23.5^{\circ}$) for bodies orbiting F0 stars, $0.999$~bar ($0^{\circ}$) and $0.978$~bar ($23.5^{\circ}$) for planets orbiting Sun-like stars, and $0.999$~bar ($0^{\circ}$) and $0.997$~bar ($23.5^{\circ}$) for planets orbiting K5 stars. The remaining $CO_{\rm 2}$ is condensed on the planetary surface as ice. The text in each panel denotes the final converged state  (ice-free or snowball planets with permanent surface $CO_{\mathrm 2}$ ice).  The model is not accurate for latitudinal temperatures below $T_{\rm surf}=150$ K, although calculated surface temperatures are always above that threshold.
+    %DIF > Latitudinally averaged surface temperature at the last time step as a function of latitude for cold start (initial  $T_{\mathrm{surf}}=230$~K; left column) and warm start (initial $T_{\mathrm{surf}}=280$~K; right column) bodies having an initial atmospheric $CO_{\mathrm{2}}$ pressure of $1$~bar. Each row samples a different region of the diagrams shown in Figure~\ref{fig:ss_all}, for planets having obliquities of $0^{\circ}$ (solid lines) and $23.5^{\circ}$ (dashed lines). The colors differentiate between planets orbiting F0, K5, and Sun-like stars at semi-major axes of $2.2$~AU (F0 star), $1.1$~AU (Sun), and $0.45$~AU (K5 star; panels A and B), $2.4$~AU (F0 star), $1.25$~AU (Sun), and $0.53$~AU (K5 star; panels C and D), and $2.75$~AU (F0 star), $1.4$~AU (Sun), and $0.6$~AU (K5 star; panels E and F). The colored text in each panel denotes the final state of all worlds contained in it (ice-free or snowball planets). Surface temperatures at polar latitudes are dotted as the model reaches surface temperatures that are lower than $150$~K.
+    }}
+    \label{fig:comp_a0}
+\end{figure*}
+
+The  average surface temperature at the last time step as a function of latitude is illustrated in Figure~\ref{fig:comp_a0}, for both initially cold and warm planets having an initial atmospheric $CO_{\mathrm{2}}$ pressure of $1$~bar and obliquity angles of $23.5^{\circ}$ (dashed lines) and $0^{\circ}$ (solid lines). These planets are located at intermediate orbital distances from the host star, close to the transition between ice-free and fully ice-covered bodies (see Figure \ref{fig:ss_all}). At such semi-major axes (and intermediate atmospheric $CO_{\rm 2}$ pressures), the initial state of a planet (warm or cold) is a strong predictor of  the final state of the planet. For instance, \DIFdelbegin \DIFdel{such }\DIFdelend warm start planets \DIFaddbegin \DIFadd{tend to }\DIFaddend end up warm as well. Likewise, a cold start planet at these distances converges to a frozen solution\DIFdelbegin \DIFdel{also}\DIFdelend . In contrast, at smaller  orbital distances, the intense starlight produces warm planets regardless of the starting state. At larger semi-major axes, the reduction in starlight, combined with more intense surface $CO_{\rm 2}$ condensation, favors cold solutions (Figure \ref{fig:ss_all}). 
+
+Low obliquity bodies receive more direct insulation at the equator, which causes large temperature differences between the latter and the poles, as well as generally lower polar surface temperatures. This also \DIFdelbegin \DIFdel{produced }\DIFdelend \DIFaddbegin \DIFadd{produces }\DIFaddend the tendency for equatorial surface temperatures to be higher at $0^{\circ}$ than at $23.5^{\circ}$ \DIFdelbegin \DIFdel{obliquity}\DIFdelend \DIFaddbegin \DIFadd{obliquities}\DIFaddend , especially at higher $CO_{\mathrm{2}}$ pressures (Figure \ref{fig:comp_a0}). \DIFdelbegin \DIFdel{While this could lead to }\DIFdelend \DIFaddbegin \DIFadd{For intermediate atmospheric $CO_{\rm 2}$ pressures, this could imply slightly }\DIFaddend more surface $CO_{\mathrm{2}}$ ice \DIFdelbegin \DIFdel{being present }\DIFdelend at higher ($23.5^{\circ}$) obliquity\DIFdelbegin \DIFdel{, we find that the portion of precipitated }\DIFdelend \DIFaddbegin \DIFadd{. For example, the fraction of atmospheric }\DIFaddend $CO_{\rm 2}$ \DIFdelbegin \DIFdel{is always higher for low obliquity }\DIFdelend \DIFaddbegin \DIFadd{that precipitates onto the planetary surface of }\DIFaddend planets having an initial atmospheric $CO_{\rm 2}$ pressure of $1$~bar \DIFaddbegin \DIFadd{is $\sim 0.05 \%$ (0$^{\circ}$ obliquity) and $\sim 1.8\%$ }\DIFaddend (\DIFdelbegin \DIFdel{see caption in Figure \ref{fig:comp_a0}) . For example, low and high obliquityplanets }\DIFdelend \DIFaddbegin \DIFadd{23.5$^{\circ}$ obliquity) for bodies }\DIFaddend orbiting F0 stars\DIFdelbegin \DIFdel{end up precipitating $\sim 13 \%$ and $\sim 5\%$ of atmospheric $CO_{\rm 2}$ onto the planetary surface, respectively. Conversely, obliquityvariations have a smaller effect for planets orbiting cooler }\DIFdelend \DIFaddbegin \DIFadd{, $\sim 0.04 \%$ (0$^{\circ}$ obliquity) and $\sim 2.2\%$ (23.5$^{\circ}$ obliquity) for planets surrounding the Sun, and $\sim 0.02 \%$ (0$^{\circ}$ obliquity) and $\sim 0.3\%$ (23.5$^{\circ}$ obliquity) for bodies orbiting }\DIFaddend K5 stars \DIFdelbegin \DIFdel{, for which the surface sequestered similar amounts of atmospheric }\DIFdelend \DIFaddbegin \DIFadd{(Figure \ref{fig:comp_a0}). \citet{Soto2015} also found a similar trend at these intermediate }\DIFaddend $CO_{\rm 2}$ \DIFdelbegin \DIFdel{at the two tilt angles ($\sim 0.1 \%$ at low and $\sim 0.4\%$ at high obliquity). This is because }\DIFdelend \DIFaddbegin \DIFadd{pressures. We attribute this to the decreased heat transport in the winter hemisphere, which favors surface $CO_{\rm 2}$ ice formation at the winter poles for these moderately dense atmospheres. The lower $CO_{\rm 2}$ ice fractions for K5 stars are explained by the stronger }\DIFaddend near-infrared absorption  \DIFdelbegin \DIFdel{is stronger (and Rayleigh scattering is weaker}\DIFdelend \DIFaddbegin \DIFadd{(and weaker Rayleigh scattering}\DIFaddend ) for worlds orbiting cooler stars \citep{kasting1993}. This allows for proportionately more energy to be transported across the planet, increasing the greenhouse effect and reducing the amount of surface $CO_{\rm 2}$ condensation, making K-star planets less sensitive to modest changes in obliquity.
+
+\subsection{\DIFadd{Fraction of condensed $CO_{\rm 2}$ ice}}
+\DIFadd{As shown by the Mars simulations of \citet{Soto2015}, the fraction of atmospheric $CO_{\mathrm{2}}$ that condenses onto a planetary surface depends heavily on the initial atmospheric $CO_{\mathrm{2}}$ pressure.  The amount of atmospheric $CO_{\rm 2}$ lost to the surface as a function of orbital distance and starting atmospheric $CO_{\rm 2}$ pressure is shown in Figure~\ref{fig:CO2_iceloss}.  The obtained trends reflect the competition between cooling ($CO_{\rm 2}$ ice condensation, clouds, and Rayleigh scattering) and warming (greenhouse effect) processes.  The highest amounts of condensed atmospheric $CO_{\rm 2}$ (on the order of $\sim 10$~\%) are obtained at large orbital distances (reduced insolation) and at low $CO_{\rm 2}$ pressures (between $0.05$ and $0.5$~bar), for which surface temperatures are relatively low and saturation is easily attained. In contrast, at the lowest atmospheric $CO_{\mathrm{2}}$ pressures (i.e., smaller than $0.05$~bar), saturation is not reached as easily, and atmospheric $CO_{\mathrm{2}}$ precipitates in smaller amounts (on the order of $\sim 1~\%$, Figure~\ref{fig:CO2_iceloss}). Similarly, at high enough atmospheric $CO_{\mathrm{2}}$ pressures, 
+the greenhouse effect dominates, countering surface ice condensation, especially at equatorial latitudes. In particular, it is the enhanced warming from $CO_{\rm 2}$-$CO_{\rm 2}$ collision-induced absorption at higher pressures that offsets such atmospheric losses \citep{wordsworth2010, ramirez2014}. Higher insolation at smaller orbital distance also thwarts surface $CO_{\mathrm{2}}$ condensation. We find that the amount of condensed surface $CO_{\rm 2}$ is highest for planets orbiting F0 stars and lowest for worlds around K5 stars. This is because planets orbiting cooler stars exhibit a stronger greenhouse effect as a result of reduced Rayleigh scattering and enhanced near-infrared absorption \citep{kasting1993}.
+}
+
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{Figures/CO2_iceloss.pdf}
+    \caption{\DIFaddFL{Fraction of initial atmospheric $CO_{\rm 2}$ condensed onto the planetary surface at the end of the simulations as a function of orbital distance and initial atmospheric $CO_{\rm 2}$ pressure for planets starting out cold (left column) and warm (right column), orbiting F0 (upper row), Sun-like (middle row) and K5 stars (lower row). The obliquity is $23.5^{\circ}$. White regions denote parameter combinations for which no permanent $CO_{\rm 2}$ ice condensation is observed (see also Figure~\ref{fig:ss_all}).}}
+    \label{fig:CO2_iceloss}
+\end{figure*}
+
+\section{Discussion}
+
+\subsection{Implications for planetary habitability on early Mars, Earth, and exoplanets}
+
+In agreement with \citet{Turbet2017}, our model finds that $CO_{\mathrm{2}}$ surface condensation can be a detriment to the habitability of cold start planets (Figure~\ref{fig:ss_all}). As the dense surface $CO_{\mathrm{2}}$ ice becomes sequestered within the subsurface, the atmospheric $CO_{\mathrm{2}}$ pressure decreases, which promotes even more ice formation, possibly leading to atmospheric collapse \citep{Turbet2017}. Unlike Earth, where volcanism ended snowball episodes \citep{Hoffman1342}, it might be more difficult for distant cold planets to avoid permanently glaciated conditions. This is because once $CO_{\mathrm{2}}$ pressures exceed saturation, $CO_{\mathrm{2}}$ is increasingly removed from the atmosphere before temperatures ever become warm enough. An exception to this could be volcanism rich in $H_{\mathrm{2}}$ or $CH_{\mathrm{4}}$, which could produce sufficient $CO_{\mathrm{2}}$-$H_{\mathrm{2}}$ or $CO_{\mathrm{2}}$-$CH_{\mathrm{4}}$ collision-induced absorption at high enough concentrations (percent level) and $CO_{\mathrm{2}}$ pressures \citep{ramirez2014,wordsworth_transient_2017,ramirez2017,ramirezkalt2018,turbet_far_2019}. Nevertheless, cold start planets that are close enough to their stars receive enough energy to circumvent the above problems (Figure~\ref{fig:ss_all}). 
+
+The above provides \DIFdelbegin \DIFdel{a couple of }\DIFdelend \DIFaddbegin \DIFadd{some }\DIFaddend interesting implications. \DIFdelbegin \DIFdel{Some }\DIFdelend \DIFaddbegin \DIFadd{A number of }\DIFaddend studies argue that Mars (located at $1.52$~AU) was a cold planet that had undergone numerous transient warming episodes over geologic timescales, possibly aided by supplementary volcanic gases or other mechanisms in a predominantly $CO_{\mathrm{2}}$ atmosphere \citep{wordsworth2013,batalha2016,wordsworth_transient_2017,kite_methane_2020,hayworth_warming_2020}. However, multiple sporadic warming episodes would be very difficult to achieve in practice because the excess $CO_{\mathrm{2}}$ will be removed from the atmosphere once a warm period ends. This will not only enhance the ice-albedo feedback, raising the planetary albedo and triggering atmospheric collapse, but the atmospheric $CO_{\mathrm{2}}$ would be gradually removed from the atmospheric-surface system forever as it sinks below the less dense $H_{\mathrm{2}}O$ ice. Some estimates of the early water inventory suggest that early Mars could have had a global equivalent water layer that was at least a couple of hundred meters deep \citep{villanueva2015,ramirezetal2020}. This would have been a sufficiently large reservoir to absorb much of the condensing surface $CO_{\mathrm{2}}$, decreasing the likelihood of subsequent transient warming episodes \citep{Turbet2017}. 
+
+In the case of limit cycles for instance\DIFdelbegin \DIFdel{(see Methods)}\DIFdelend , models often assume dirty low albedo (0.35) surface $CO_{\mathrm{2}}$ ice \citep{batalha2016, kadoya_outer_2019,hayworth_warming_2020}. This helps \DIFdelbegin \DIFdel{reduce }\DIFdelend \DIFaddbegin \DIFadd{increase }\DIFaddend the absorbed stellar flux\DIFdelbegin \DIFdel{and increases the likelihood }\DIFdelend \DIFaddbegin \DIFadd{, which favors deglaciation and the occurrence }\DIFaddend of limit cycles. However, observations suggest that the mean $CO_{\mathrm{2}}$ ice albedo on present Mars is much higher \citep{forget2013}. \DIFdelbegin \DIFdel{So}\DIFdelend \DIFaddbegin \DIFadd{Therefore}\DIFaddend , assuming such a low albedo on a global scale may be unrealistic. Also, limit cycle models almost always assume a linear relationship between weathering rate and dissolution of \DIFaddbegin [\DIFaddend H+\DIFaddbegin ] \DIFaddend in groundwater \citep{batalha2016,kadoya_outer_2019,hayworth_warming_2020}. However, experiments have shown that this relationship is much weaker for real silicate rocks \citep{asolekar1991}, greatly reducing the occurrence of limit cycles \citep{ramirez2017mars}. Thus, it is not clear if such global episodic warm episodes had ever occurred on early Mars, at least during the climate optimum of maximum fluvial incision. If they did, they may have been very few in number.  
+
+In contrast to our cold start cases, our warm start simulations suggest that the condensation of surface $CO_{\mathrm{2}}$ ice affects a much smaller range of orbital distances. Irrespective of the star type, the range of semi-major axes and $CO_{\mathrm{2}}$ pressures for which planets exhibit habitable surface conditions is similar to that predicted by 1-D calculations of the habitable zone \citep{kasting1993, Ramirez2018}. \DIFdelbegin \DIFdel{That said, warm }\DIFdelend \DIFaddbegin \DIFadd{Warm }\DIFaddend start cases that are distant enough to manifest significant surface $CO_{\mathrm{2}}$ condensation suffer the same habitability problems discussed above for cold start planets. \DIFdelbegin %DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend These results also have implications for our own planet. The Earth, by definition, is located close enough to the star where surface $CO_{\mathrm{2}}$ ice condensation is impossible under normal circumstances (Figure~\ref{fig:ss_all}), and it would have been warm so long as the greenhouse effect, including from $CO_{\mathrm{2}}$, was potent enough. Nevertheless, the Hadean Earth likely had a $CO_{\mathrm{2}}$-rich atmosphere \citep{kasting2014}, suggesting that it was almost certainly a warm start planet, possibly facilitating an early emergence of life.
+
+\subsection{Comparison with previous studies}
+
+Although we obtain similar trends, our cold start results differ in certain respects from those of \citet{Turbet2017}. In particular, there are discrepancies in the spatial coverage of the red (ice-free or \DIFdelbegin \DIFdel{partially }\DIFdelend ice-covered planets \DIFaddbegin \DIFadd{with no $CO_{\mathrm{2}}$ ice}\DIFaddend ) and blue (cold and icy planets displaying surface $CO_{\mathrm{2}}$ ice) colored regions in Figure~\ref{fig:ss_all} between the two studies, which are likely to be mostly attributed to model differences (although there are slight differences in definition of the regions \DIFdelbegin \DIFdel{also}\DIFdelend \DIFaddbegin \DIFadd{as well}\DIFaddend ). In particular, EBMs such as this one are quite sensitive to the ice-albedo feedback, and are thus more prone to abrupt transitions between cold and warm climate states \citep{RamirezLevi2018}\DIFaddbegin \DIFadd{, as shown in Figure~\ref{fig:ss_all}}\DIFaddend . Our model also employs an atmospheric-ocean heat transport parameterization which likely produces different model behavior during the transition between icy and warm climates than what the static ocean assumption of \citet{Turbet2017} would yield. It is unclear how GCMs with fully-coupled atmospheric oceans may compare with the results presented here. This would be an interesting consideration for future studies. 
+
+We note that at low $CO_{\rm 2}$ partial pressures surface $CO_{\rm 2}$ condensation is more easily reached than what is qualitatively shown in Figure~\ref{fig:Sketch}. However, when planets are located far away enough from the host star and/or surface temperatures are low enough (such as for cold starts), $CO_{\rm 2}$ condensation can easily take place during the evolution of the planet, once saturation pressure is reached. Some of the difference may be due to $H_{\rm 2}O$ ice cloud warming that some GCMs predict in dry and cold atmospheres, but our model does not. An alternative reason for the differences may be in the spatial and vertical distributions of clouds, which are not accurately predicted by EBMs. Furthermore, the $CO_{\mathrm{2}}$ clouds formed in our simulations impact the planetary albedo, but they are non-absorbing (see Section~\ref{sec:Methods}). In contrast, the $CO_{\mathrm{2}}$ clouds of \citet{Turbet2017} are either radiatively active or inactive across the entire spectrum. Nevertheless, other GCM results are consistent with 1-D results (and, in turn, the EBM results here in the location of the outer edge of the habitable zone; \citet{wolf2018erratum}). Our warm start results agree well with those predicted from 1-D radiative-convective climate models \citep{kasting1993, KumarKopparapu2013, Ramirez2018}.
+
+Surface condensation of $CO_{\mathrm{2}}$ ice is highly dependent on the equator-to-pole temperature contrast, which in turn is sensitive to the diffusion coefficient $D$ (Equation~\ref{hdiff}), which includes the planetary obliquity. We compared our results with those of past GCM simulations of snowball planets \citep{hoffman_snowball_2017} to test the reliability of our diffusion parameterization. Figure~\ref{fig:Hoffman_comparison} shows the predicted latitudinally-averaged surface temperature distributions in our model. In general, our results agree quite well with the ones of \citet{hoffman_snowball_2017}, lying near the lower range of surface temperatures, similar to the FOAM (Fast Ocean Atmosphere Model) model. Some of the GCM simulations are slightly warmer than ours (except for the FOAM model) because they predict the formation of highly-absorbing upper atmospheric $H_{\rm 2}O$ ice clouds in these cold and (otherwise) dry atmospheres. More models should test this result. Nevertheless, we conclude that our employed heat diffusion parameterization is reasonable and consistent with previous studies.
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{Figures/Hoffman_comparison.pdf}
+    \caption{Average surface temperature as a function of latitude obtained using initial conditions corresponding to the GCM by \citet{hoffman_snowball_2017} (Figure 8a), for initial atmospheric $CO_{\rm 2}$ contents of $0.11$~mbar and $100$~mbar. The surface albedo was set to $0.6$ everywhere while planetary obliquity and eccentricity were set to $23.5^{\circ}$, and zero, respectively.}
+    \label{fig:Hoffman_comparison}
+\end{figure}
+
+In summary, the main differences between EBMs and GCMs are mainly related to how large scale dynamics (which might lead to sharper climatic transitions) and clouds are treated, whose spatial and vertical distributions \DIFdelbegin \DIFdel{cannot be accurately predicted by EBMs. Nevertheless, EBMs }\DIFdelend \DIFaddbegin \DIFadd{are not computed in most EBMs. In spite of that, our EBM exhibits latitudinal mean surface temperatures for Earth that are consistent with real world data \citep{RamirezLevi2018}. Our consistency with the GCM snowball simulations of \citet{hoffman_snowball_2017} is further suggestive of this. Furthermore, EBMs like ours }\DIFaddend are computationally efficient, enabling \DIFaddbegin \DIFadd{the }\DIFaddend exploration of a wide parameter space, which would be \DIFdelbegin \DIFdel{computational }\DIFdelend \DIFaddbegin \DIFadd{computationally }\DIFaddend expensive with GCMs. \DIFdelbegin \DIFdel{Furthermore, since }\DIFdelend \DIFaddbegin \DIFadd{Since }\DIFaddend this study mainly addresses different climatic trends and distributions, EBMs such as this one are appropriate tools. \DIFdelbegin \DIFdel{Nevertheless}\DIFdelend \DIFaddbegin \DIFadd{Ultimately}\DIFaddend , improved observations are needed to test how well climate models, irrespective of complexity, agree with reality.
+
+\DIFaddbegin \DIFadd{The habitable zone is the circumstellar region where standing bodies of liquid water could exist on the surface of a rocky planet \citep{Ramirez2018}. In our solar system, a conservative estimate spans from \textasciitilde $0.95$ - $1.67$ AU \citep{kasting1993, Ramirez2018}. Warm starts have traditionally been assumed in these
+and most other calculated habitable zone limits \citep{kasting1993, pierregaidos2011, KumarKopparapu2013,zsom2013, ramirez2017, ramirez2020complex, ramirez2020}. 
+In contrast, \citet{kadoya_outer_2019} have shown that the habitable zone outer edge limit distance decreases for systems composed of cold start planets.  Although that conclusion is consistent with the trends we find here for cold and warm start planets across all distances (Figure~\ref{fig:ss_all}), we stress that a system's outer edge limit corresponds to that for warm start planets should at least one such planet exist. In other words, without additional information regarding the planets themselves, the absolute outer edge limit in a stellar system is best characterized by its warm start limit (as computed previously) \citep{kasting1993, KumarKopparapu2013}.
+}
+
+\DIFadd{We have compared our cold and warm start habitable zone limits with those of \citet{kadoya_outer_2019}, assuming the stellar properties outlined in Table \ref{tab:parameters}. For the Sun, \citet{kadoya_outer_2019} obtain warm and cold start limits at $\sim1.69$ and $1.49$~AU, respectively, whereas our corresponding limits were found at $\sim 1.68$ and $1.39$~AU. We
+attribute the slightly smaller cold start habitable zone limit ($\sim 7~\%$ decrease) to differences in ice-albedo feedback parameterizations and our addition of clouds (which they do not include in their model).
+Likewise, their F-star warm and cold start limits are computed at $\sim 3.2$ and $2.75$~AU whereas our F0 limits are located at $\sim 3.1$ and $2.62$~AU, respectively. Thus, our F0 values are smaller by  about $3$-$5\%$. Again, our K5 warm and cold start limits are at $\sim 0.74$ and $0.65$~AU, respectively, as compared to their K-star values at 0.73 and 0.66 AU. These are within 2$\%$ of each other and are overall consistent.  We note that any remaining differences with \citet{kadoya_outer_2019} could be attributed to differences in the employed stellar spectra.
+}
+
+\DIFadd{Similarly to \citet{kadoya_outer_2019}, we find that the difference in the stellar effective flux, $S_{\rm eff}$, between cold and warm start distances decreases from hotter to cooler stars. Assuming $S_{\rm eff}=1$ is the incident energy received on Earth at 1~AU from the Sun, $S_{\rm eff}$ can be computed following \citet{kasting1993} as
+}
+
+\begin{equation}
+\DIFadd{S_{\rm eff} = \frac{L}{d^{2}}.
+}\end{equation}
+
+\DIFadd{Here, $L$ is stellar luminosity in solar units and $d$ is the semi-major axis in astronomical units (AU). For instance, the solar $S_{\rm eff}$ from warm to cold starts increases by $\sim 0.17$ (i.e., from $\sim 0.35$ to $0.52$), whereas this increase was only $\sim 0.09$ (from 0.27 to 0.36) for K5 stars. The $S_{\rm eff}$ increase was the largest at $\sim 0.18$ (0.447 - 0.63) for the hotter (F0) stars. This trend occurs because the ice-albedo feedback weakens whereas near-infared absorption intensifies for habitable zone planets orbiting cooler stars, reducing the difference in $S_{\rm eff}$ between cold and warm start limits. 
+}
+
+\DIFaddend \section{Conclusions}
+Planets similar to Earth might experience cold or warm stages during the course of their evolution. The carbonate-silicate cycle can stabilize planetary temperatures over geological timescales. While  $CO_{\mathrm{2}}$ generally increases surface temperature, high enough atmospheric $CO_{\mathrm{2}}$ can trigger atmospheric collapse via $CO_{\mathrm{2}}$ surface ice condensation (starting at the poles), leading to irreversible glaciation. Such a process could negatively impact the habitability of terrestrial bodies, even if located within the canonical habitable zone. This was argued in \citet{Turbet2017}, whom showed that surface $CO_{\mathrm{2}}$ ice condensation on initially frozen planets orbiting the Sun can significantly reduce the range of habitable orbital distances. 
+
+Our work here confirms these results and extends the analysis to rapidly-rotating planets under different starting temperature conditions orbiting a range of star types (F - K). Using a latitudinally-dependent EBM, we show that planets that start out warm generally exhibit surface $CO_{\mathrm{2}}$ ice condensation at significantly larger orbital distances than cold start (i.e., fully glaciated with $T_{\mathrm{surf}}=230$~K) planets. This implies a wide habitable zone, consistent with what had been previously computed using simpler 1-D models \citep{kasting1993,KumarKopparapu2013,Ramirez2018}. \DIFdelbegin \DIFdel{Although our model predicts that this zone remains similarly wide across obliquities, we find that inefficient poleward heat transport leads to more surface  $CO_{\mathrm{2}}$ ice production at lower ($0^{\circ}$) obliquity. }\DIFdelend Finally, our heat diffusion parameterization provides a simple way of evaluating a range of warm and cold climates with minimal tuning of parameters. 
+
+The physics of planetary atmospheres remain complex, particularly for planets unlike the Earth. Future work should continue to use a hierarchy of models to explore the effects of clouds, convection, and the impact that oceans have on the overall heat transport. 
+
+\section*{Acknowledgements}
+I.B. acknowledges financial support from the Japanese Ministry of Education, Culture, Sports, Science and Technology (MEXT) \DIFaddbegin \DIFadd{and the Japanese Society for the Promotion of Science (JSPS)}\DIFaddend .
+R.M.R. acknowledges funding from the Earth-Life Science Institute (ELSI) and from the National Institutes of Natural Sciences: Astrobiology Center (grant number JY310064)\DIFaddbegin \DIFadd{.
+}
+
+\section*{\DIFadd{Data availability}}
+\DIFadd{The code and the jupyter notebook files used for the analysis are available on Github at https://github.com/irenebonati/CO2-condensation}\DIFaddend .
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+% The best way to enter references is to use BibTeX:
+
+\bibliographystyle{mnras}
+\bibliography{bibliography} % if your bibtex file is called example.bib
+
+% Alternatively you could enter them by hand, like this:
+% This method is tedious and prone to error if you have lots of references
+%\begin{thebibliography}{99}
+%\bibitem[\protect\citeauthoryear{Author}{2012}]{Author2012}
+%Author A.~N., 2013, Journal of Improbable Astronomy, 1, 1
+%\bibitem[\protect\citeauthoryear{Others}{2013}]{Others2013}
+%Others S., 2012, Journal of Interesting Stuff, 17, 198
+%\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+
+%\appendix
+
+%\section{Some extra material}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+% End of mnras_template.tex
+
+% Outer edge habitable zone
+% Sun
+% Warm start: 1.68 AU for a CO2 pressure of 8 bar
+% Cold start: 1.39 AU for a CO2 pressure of 6 bar
+
+% F0
+% Warm start: 3.1 AU for CO2 pressure of 5 bar, luminosity: 4.3 times the luminosity of the Sun
+% Cold start: 2.62 AU at 5 bar CO2
+
+% K5: 3 decimal places
+% Warm start: 0.743 AU CO2 pressure 12 bar
+% Cold start:  0.648 AU at CO2 pressure of 12 bar

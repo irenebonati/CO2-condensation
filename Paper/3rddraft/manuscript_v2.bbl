@@ -1,0 +1,237 @@
+\begin{thebibliography}{}
+\makeatletter
+\relax
+\def\mn@urlcharsother{\let\do\@makeother \do\$\do\&\do\#\do\^\do\_\do\%\do\~}
+\def\mn@doi{\begingroup\mn@urlcharsother \@ifnextchar [ {\mn@doi@}
+  {\mn@doi@[]}}
+\def\mn@doi@[#1]#2{\def\@tempa{#1}\ifx\@tempa\@empty \href
+  {http://dx.doi.org/#2} {doi:#2}\else \href {http://dx.doi.org/#2} {#1}\fi
+  \endgroup}
+\def\mn@eprint#1#2{\mn@eprint@#1:#2::\@nil}
+\def\mn@eprint@arXiv#1{\href {http://arxiv.org/abs/#1} {{\tt arXiv:#1}}}
+\def\mn@eprint@dblp#1{\href {http://dblp.uni-trier.de/rec/bibtex/#1.xml}
+  {dblp:#1}}
+\def\mn@eprint@#1:#2:#3:#4\@nil{\def\@tempa {#1}\def\@tempb {#2}\def\@tempc
+  {#3}\ifx \@tempc \@empty \let \@tempc \@tempb \let \@tempb \@tempa \fi \ifx
+  \@tempb \@empty \def\@tempb {arXiv}\fi \@ifundefined
+  {mn@eprint@\@tempb}{\@tempb:\@tempc}{\expandafter \expandafter \csname
+  mn@eprint@\@tempb\endcsname \expandafter{\@tempc}}}
+
+\bibitem[\protect\citeauthoryear{Asolekar, Valentine  \& Schnoor}{Asolekar
+  et~al.}{1991}]{asolekar1991}
+Asolekar S.,  Valentine R.,   Schnoor J.~L.,  1991, Water resources research,
+  27, 527
+
+\bibitem[\protect\citeauthoryear{Batalha, Kopparapu, Haqq-Misra  \&
+  Kasting}{Batalha et~al.}{2016}]{batalha2016}
+Batalha N.~E.,  Kopparapu R.~K.,  Haqq-Misra J.,   Kasting J.~F.,  2016, Earth
+  and Planetary Science Letters, 455, 7
+
+\bibitem[\protect\citeauthoryear{Caballero \& Langen}{Caballero \&
+  Langen}{2005}]{Caballero2005a}
+Caballero R.,  Langen P.~L.,  2005, \mn@doi [Geophysical Research Letters]
+  {10.1029/2004GL021581}, 32, 1
+
+\bibitem[\protect\citeauthoryear{Forget, Hourdin  \& Talagrand}{Forget
+  et~al.}{1998}]{forget1998}
+Forget F.,  Hourdin F.,   Talagrand O.,  1998, Icarus, 131, 302
+
+\bibitem[\protect\citeauthoryear{Forget, Wordsworth, Millour, Madeleine,
+  Kerber, Leconte, Marcq  \& Haberle}{Forget et~al.}{2013}]{forget2013}
+Forget F.,  Wordsworth R.,  Millour E.,  Madeleine J.-B.,  Kerber L.,  Leconte
+  J.,  Marcq E.,   Haberle R.~M.,  2013, Icarus, 222, 81
+
+\bibitem[\protect\citeauthoryear{Fray \& Schmitt}{Fray \&
+  Schmitt}{2009}]{fray_sublimation_2009}
+Fray N.,  Schmitt B.,  2009, \mn@doi [Planetary and Space Science]
+  {10.1016/j.pss.2009.09.011}, 57, 2053
+
+\bibitem[\protect\citeauthoryear{Graham \& Pierrehumbert}{Graham \&
+  Pierrehumbert}{2020}]{graham-a}
+Graham R.,  Pierrehumbert R.,  2020, Astrophysical Journal, 896
+
+\bibitem[\protect\citeauthoryear{Haqq-Misra, Kopparapu, Batalha, Harman  \&
+  Kasting}{Haqq-Misra et~al.}{2016}]{haqq2016limit}
+Haqq-Misra J.,  Kopparapu R.~K.,  Batalha N.~E.,  Harman C.~E.,   Kasting
+  J.~F.,  2016, The Astrophysical Journal, 827, 120
+
+\bibitem[\protect\citeauthoryear{Hayworth, Kopparapu, Haqq-Misra, Batalha,
+  Payne, Foley, Ikwut-Ukwa  \& Kasting}{Hayworth
+  et~al.}{2020}]{hayworth_warming_2020}
+Hayworth B. P.~C.,  Kopparapu R.~K.,  Haqq-Misra J.,  Batalha N.~E.,  Payne
+  R.~C.,  Foley B.~J.,  Ikwut-Ukwa M.,   Kasting J.~F.,  2020, \mn@doi [Icarus]
+  {10.1016/j.icarus.2020.113770}, 345, 113770
+
+\bibitem[\protect\citeauthoryear{Hoffman, Kaufman, Halverson  \&
+  Schrag}{Hoffman et~al.}{1998}]{Hoffman1342}
+Hoffman P.~F.,  Kaufman A.~J.,  Halverson G.~P.,   Schrag D.~P.,  1998, \mn@doi
+  [Science] {10.1126/science.281.5381.1342}, 281, 1342
+
+\bibitem[\protect\citeauthoryear{Hoffman et~al.,}{Hoffman
+  et~al.}{2017}]{hoffman_snowball_2017}
+Hoffman P.~F.,  et~al., 2017, \mn@doi [Science Advances]
+  {10.1126/sciadv.1600983}, 3, e1600983
+
+\bibitem[\protect\citeauthoryear{James \& North}{James \&
+  North}{1982}]{james1982}
+James P.~B.,  North G.~R.,  1982, Journal of Geophysical Research: Solid Earth,
+  87, 10271
+
+\bibitem[\protect\citeauthoryear{Kadoya \& Tajika}{Kadoya \&
+  Tajika}{2019}]{kadoya_outer_2019}
+Kadoya S.,  Tajika E.,  2019, \mn@doi [The Astrophysical Journal]
+  {10.3847/1538-4357/ab0aef}, 875, 7
+
+\bibitem[\protect\citeauthoryear{Kasting}{Kasting}{1991}]{Kasting1991}
+Kasting J.~F.,  1991, \mn@doi [Icarus] {10.1016/0019-1035(91)90137-I}, 94, 1
+
+\bibitem[\protect\citeauthoryear{Kasting}{Kasting}{2014}]{kasting2014}
+Kasting J.~F.,  2014, Geological Society of America Special Papers, 504, 19
+
+\bibitem[\protect\citeauthoryear{Kasting, Whitmire  \& Reynolds}{Kasting
+  et~al.}{1993}]{kasting1993}
+Kasting J.~F.,  Whitmire D.~P.,   Reynolds R.~T.,  1993, Icarus, 101, 108
+
+\bibitem[\protect\citeauthoryear{Kirschvink}{Kirschvink}{1992}]{kirschvink1992}
+Kirschvink J.~L.,  1992, Late Proterozoic low-latitude global glaciation: the
+  snowball Earth.
+Cambridge University Press
+
+\bibitem[\protect\citeauthoryear{Kite, Mischna, Gao, Yung  \& Turbet}{Kite
+  et~al.}{2020}]{kite_methane_2020}
+Kite E.~S.,  Mischna M.~A.,  Gao P.,  Yung Y.~L.,   Turbet M.,  2020, \mn@doi
+  [P\&SS] {10.1016/j.pss.2019.104820}, 181, 104820
+
+\bibitem[\protect\citeauthoryear{Kitzmann}{Kitzmann}{2016}]{kitzmann2016}
+Kitzmann D.,  2016, The Astrophysical Journal Letters, 817, L18
+
+\bibitem[\protect\citeauthoryear{{Kopparapu} et~al.,}{{Kopparapu}
+  et~al.}{2013}]{KumarKopparapu2013}
+{Kopparapu} R.~K.,  et~al., 2013, \mn@doi [The Astrophysical Journal]
+  {10.1088/0004-637X/765/2/131}, 765, 131
+
+\bibitem[\protect\citeauthoryear{North \& Coakley~Jr}{North \&
+  Coakley~Jr}{1979}]{North1979}
+North G.~R.,  Coakley~Jr J.~A.,  1979, Journal of the Atmospheric Sciences, 36,
+  1189
+
+\bibitem[\protect\citeauthoryear{North, Cahalan  \& Coakley}{North
+  et~al.}{1981}]{North1981}
+North G.~R.,  Cahalan R.~F.,   Coakley J.~A.,  1981, Nasa-Cr-177133
+
+\bibitem[\protect\citeauthoryear{Paradise \& Menou}{Paradise \&
+  Menou}{2017}]{paradise2017}
+Paradise A.,  Menou K.,  2017, The Astrophysical Journal, 848, 33
+
+\bibitem[\protect\citeauthoryear{Pierrehumbert}{Pierrehumbert}{2005}]{Phumbert2005}
+Pierrehumbert R.~T.,  2005, \mn@doi [Journal of Geophysical Research:
+  Atmospheres] {10.1029/2004JD005162}, 110
+
+\bibitem[\protect\citeauthoryear{Pierrehumbert, Abbot, Voigt  \&
+  Koll}{Pierrehumbert et~al.}{2011}]{Phumbert2011}
+Pierrehumbert R.,  Abbot D.,  Voigt A.,   Koll D.,  2011, \mn@doi [Annual
+  Review of Earth and Planetary Sciences]
+  {10.1146/annurev-earth-040809-152447}, 39, 417
+
+\bibitem[\protect\citeauthoryear{Ramirez}{Ramirez}{2017}]{ramirez2017mars}
+Ramirez R.~M.,  2017, Icarus, 297, 71
+
+\bibitem[\protect\citeauthoryear{Ramirez}{Ramirez}{2018}]{Ramirez2018}
+Ramirez R.~M.,  2018, Geosciences, 8, 280
+
+\bibitem[\protect\citeauthoryear{Ramirez}{Ramirez}{2020}]{ramirez2020}
+Ramirez R.~M.,  2020, Monthly Notices of the Royal Astronomical Society, 494,
+  259
+
+\bibitem[\protect\citeauthoryear{Ramirez \& Kaltenegger}{Ramirez \&
+  Kaltenegger}{2017}]{ramirez2017}
+Ramirez R.~M.,  Kaltenegger L.,  2017, The Astrophysical Journal Letters, 837,
+  L4
+
+\bibitem[\protect\citeauthoryear{Ramirez \& Kaltenegger}{Ramirez \&
+  Kaltenegger}{2018}]{ramirezkalt2018}
+Ramirez R.~M.,  Kaltenegger L.,  2018, The Astrophysical Journal, 858, 72
+
+\bibitem[\protect\citeauthoryear{Ramirez \& Levi}{Ramirez \&
+  Levi}{2018}]{RamirezLevi2018}
+Ramirez R.~M.,  Levi A.,  2018, \mn@doi [Monthly Notices of the Royal
+  Astronomical Society] {10.1093/mnras/sty761}, 4640, 4627
+
+\bibitem[\protect\citeauthoryear{Ramirez, Kopparapu, Zugger, Robinson, Freedman
+   \& Kasting}{Ramirez et~al.}{2014}]{ramirez2014}
+Ramirez R.~M.,  Kopparapu R.,  Zugger M.~E.,  Robinson T.~D.,  Freedman R.,
+  Kasting J.~F.,  2014, Nature Geoscience, 7, 59
+
+\bibitem[\protect\citeauthoryear{Ramirez, Craddock  \& Usui}{Ramirez
+  et~al.}{2020}]{ramirezetal2020}
+Ramirez R.~M.,  Craddock R.~A.,   Usui T.,  2020, Journal of Geophysical
+  Research: Planets, 125, e2019JE006160
+
+\bibitem[\protect\citeauthoryear{Rose, Cronin  \& Bitz}{Rose
+  et~al.}{2017}]{Rose2017}
+Rose B. E.~J.,  Cronin T.~W.,   Bitz C.~M.,  2017, \mn@doi [The Astrophysical
+  Journal] {10.3847/1538-4357/aa8306}, 846, 28
+
+\bibitem[\protect\citeauthoryear{Soto, Mischna, Schneider, Lee  \&
+  Richardson}{Soto et~al.}{2015}]{Soto2015}
+Soto A.,  Mischna M.,  Schneider T.,  Lee C.,   Richardson M.,  2015, \mn@doi
+  [Icarus] {10.1016/j.icarus.2014.11.028}, 250, 553
+
+\bibitem[\protect\citeauthoryear{{Turbet}, {Forget}, {Leconte}, {Charnay}  \&
+  {Tobie}}{{Turbet} et~al.}{2017}]{Turbet2017}
+{Turbet} M.,  {Forget} F.,  {Leconte} J.,  {Charnay} B.,   {Tobie} G.,  2017,
+  \mn@doi [Earth and Planetary Science Letters] {10.1016/j.epsl.2017.07.050},
+  \href {https://ui.adsabs.harvard.edu/abs/2017E&PSL.476...11T} {476, 11}
+
+\bibitem[\protect\citeauthoryear{Turbet, Tran, Pirali, Forget, Boulet  \&
+  Hartmann}{Turbet et~al.}{2019}]{turbet_far_2019}
+Turbet M.,  Tran H.,  Pirali O.,  Forget F.,  Boulet C.,   Hartmann J.-M.,
+  2019, \mn@doi [Icarus] {10.1016/j.icarus.2018.11.021}, 321, 189
+
+\bibitem[\protect\citeauthoryear{Villanueva et~al.,}{Villanueva
+  et~al.}{2015}]{villanueva2015}
+Villanueva G.,  et~al., 2015, Science, 348, 218
+
+\bibitem[\protect\citeauthoryear{Vladilo, Murante, Silva, Provenzale, Ferri  \&
+  Ragazzini}{Vladilo et~al.}{2013}]{vladilo2013}
+Vladilo G.,  Murante G.,  Silva L.,  Provenzale A.,  Ferri G.,   Ragazzini G.,
+  2013, The Astrophysical Journal, 767, 65
+
+\bibitem[\protect\citeauthoryear{Warren, Wiscombe  \& Firestone}{Warren
+  et~al.}{1990}]{warren_spectral_1990}
+Warren S.~G.,  Wiscombe W.~J.,   Firestone J.~F.,  1990, \mn@doi [Journal of
+  Geophysical Research: Solid Earth] {10.1029/JB095iB09p14717}, 95, 14717
+
+\bibitem[\protect\citeauthoryear{Williams \& Kasting}{Williams \&
+  Kasting}{1997}]{Williams1997}
+Williams D.~M.,  Kasting J.~F.,  1997, \mn@doi [Icarus]
+  {10.1006/icar.1997.5759}, 129, 254
+
+\bibitem[\protect\citeauthoryear{Williams \& Pollard}{Williams \&
+  Pollard}{2003}]{WilliamsPollard}
+Williams D.,  Pollard D.,  2003, \mn@doi [International Journal of Astrobiology
+  - INT J ASTROBIOL] {10.1017/S1473550403001356}, 2
+
+\bibitem[\protect\citeauthoryear{Wolf}{Wolf}{2018}]{wolf2018erratum}
+Wolf E.~T.,  2018, Astrophys. J. Lett, 855
+
+\bibitem[\protect\citeauthoryear{Wordsworth, Forget, Millour, Head, Madeleine
+  \& Charnay}{Wordsworth et~al.}{2013}]{wordsworth2013}
+Wordsworth R.,  Forget F.,  Millour E.,  Head J.,  Madeleine J.-B.,   Charnay
+  B.,  2013, Icarus, 222, 1
+
+\bibitem[\protect\citeauthoryear{Wordsworth, Kalugina, Lokshtanov, Vigasin,
+  Ehlmann, Head, Sanders  \& Wang}{Wordsworth
+  et~al.}{2017}]{wordsworth_transient_2017}
+Wordsworth R.,  Kalugina Y.,  Lokshtanov S.,  Vigasin A.,  Ehlmann B.,  Head
+  J.,  Sanders C.,   Wang H.,  2017, \mn@doi [Geophysical Research Letters]
+  {10.1002/2016GL071766}, 44, 665
+
+\bibitem[\protect\citeauthoryear{Xu \& Krueger}{Xu \& Krueger}{1991}]{xu1991}
+Xu K.-M.,  Krueger S.~K.,  1991, Monthly weather review, 119, 342
+
+\bibitem[\protect\citeauthoryear{Yang \& Abbot}{Yang \& Abbot}{2014}]{yang2014}
+Yang J.,  Abbot D.~S.,  2014, The Astrophysical Journal, 784, 155
+
+\makeatother
+\end{thebibliography}
