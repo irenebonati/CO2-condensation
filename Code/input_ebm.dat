@@ -8,7 +8,7 @@ pco2i:           1.0
 lday:            86400           ! length of a planetary day in seconds (Earth's = 86,400) 
 g:               9.81            ! gravitational acceleration (m/s^2; default for Earth = 9.81)
 a0:              0.53
-ecc:		    0.016708617    ! orbital eccentricity (0.016708617 for Earth)
+ecc:		    0.0    ! orbital eccentricity (0.016708617 for Earth)
 peri:            76.25           ! longitude of perihelion wrt. vernal equinox (degrees)(Earth, 76.25 degrees)
 obl:             23.5
 ocean:           0.7
