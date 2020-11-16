@@ -1172,6 +1172,7 @@ if (ann_tempave.ge.288)latefrac = 1.
       globwthrate = globwthrate + wthrate(k)
 
 	  co2sicesum = co2sicesum + area(k)*imco2s(k)
+	  print *,co2sicesum
       co2icesum = co2icesum + area(k)*imco2i(k)*ccloud(k)
 	  co2lsum = co2lsum + area(k)*imco2l(k) 
 	  h2osum = h2osum + area(k)*h2ocloud(k)       
@@ -1342,7 +1343,7 @@ sumpco2 = 0.d0  ! At the end of every year set this summing pcO2 term to zero.
                  
                  if (last.eq.1) then
                  do k=1,nbelts
-                 print *,pco2(k)
+                 !print *,pco2(k)
                  enddo
                  endif
 !=======================================================
@@ -1457,7 +1458,7 @@ sumpco2 = 0.d0  ! At the end of every year set this summing pcO2 term to zero.
  1130 format(/ 'ZONAL STATISTICS')
          write(modelout,1135)
  1135 format(1x,'latitude(deg)',2x,'ave temp(K)',2x,'min temp(K)', &
-      2x,'@dec(deg)',2x,'max temp(K)',2x,'@dec(deg)',2x, &
+      2x,'max temp(K)',2x,'@dec(deg)',2x, &
       'seas.amp(K)')
 
       write(modelout,1100) 
@@ -1497,7 +1498,7 @@ sumpco2 = 0.d0  ! At the end of every year set this summing pcO2 term to zero.
 
       do  k=1,nbelts,1   !THIS IS THE MAIN LATITUDE TEMPERATURE OUTPUT
          write(modelout,751) lat(k),zntempave(k),zntempmin(k), &
-           zndecmin(k),zntempmax(k),zndecmax(k), &
+           zntempmax(k),zndecmax(k), &
            (zntempmax(k)-zntempmin(k))/2.
       enddo   
 			   

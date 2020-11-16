@@ -2,7 +2,7 @@
 
 seasonflag:      1              ! flag: if 1, seasons are turned on
 igeog:           1
-icoldflag:       1
+icoldflag:       0
 Pdry:            1.              ! surface pressure of everything else (e.g. N2) minus H2O (bar,default for Earth = 1.)
 pco2i:           1.0
 lday:            86400           ! length of a planetary day in seconds (Earth's = 86,400) 

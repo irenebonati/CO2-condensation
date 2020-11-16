@@ -14,7 +14,7 @@ import subprocess
 
 # We only have to change these 3 parameters
 start = ["Cold"] # "Cold" or "Warm"
-STAR = ["Sun"]
+STAR = ["F0"]
 obl = ["23.5"]
 
 ocean = ["0.7"]
