@@ -1172,7 +1172,7 @@ if (ann_tempave.ge.288)latefrac = 1.
       globwthrate = globwthrate + wthrate(k)
 
 	  co2sicesum = co2sicesum + area(k)*imco2s(k)
-	  print *,co2sicesum
+	  !print *,co2sicesum
       co2icesum = co2icesum + area(k)*imco2i(k)*ccloud(k)
 	  co2lsum = co2lsum + area(k)*imco2l(k) 
 	  h2osum = h2osum + area(k)*h2ocloud(k)       
