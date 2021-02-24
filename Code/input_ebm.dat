@@ -2,19 +2,19 @@
 
 seasonflag:      1              ! flag: if 1, seasons are turned on
 igeog:           1
-icoldflag:       0
+icoldflag:       1
 Pdry:            1.              ! surface pressure of everything else (e.g. N2) minus H2O (bar,default for Earth = 1.)
-pco2i:           1.0
+pco2i:           0.1
 lday:            86400           ! length of a planetary day in seconds (Earth's = 86,400) 
 g:               9.81            ! gravitational acceleration (m/s^2; default for Earth = 9.81)
-a0:              0.53
+a0:              1.
 ecc:		    0.0    ! orbital eccentricity (0.016708617 for Earth)
 peri:            76.25           ! longitude of perihelion wrt. vernal equinox (degrees)(Earth, 76.25 degrees)
 obl:             23.5
 ocean:           0.7
 groundalb:	    0.22            ! base land surface albedo (default 0.22 for Earth (Manabe and Wetherald (1967) and also for Mars)
-STAR:      K5
-smass:           0.6
+STAR:      Sun
+smass:           1.
 tend:            7.e13           ! total calculation length (seconds).. some arbitrarily super high number(e.g. 7.e12)
 val:     0.001
  

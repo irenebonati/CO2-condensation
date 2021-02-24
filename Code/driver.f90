@@ -389,7 +389,7 @@ do k = 1, nbelts, 1
   midlat(k) = midlatrad(k)*180./pi !  center of latitudinal bands (in degrees)
 enddo
 
-! Fixing ..getting the right angles here for the beginning.
+! Getting the right angles here for the beginning.
 midlatrad(1) = -87.5*pi/180.
 midlat(1) = -87.5 
  
@@ -431,11 +431,10 @@ enddo
 
 asum = 0.
 do k = 1,nbelts
-    area(k) = abs(sin(latrad(k)+pi/(2*nbelts))- &
-	sin(latrad(k)-pi/(2*nbelts)))/2.
-	asum = area(k) + asum  ! summing all the areas.. adds up to 1!
-	! TODO: Check this (Irene)
+    area(k) = abs(sin(latrad(k)+pi/(2*nbelts))- sin(latrad(k)-pi/(2*nbelts)))/2.
+	asum = area(k) + asum  ! summing all the areas: adds up to 1!
 enddo
+!print *, asum
 
 !---------------------------------------------------
 ! Initialize ice albedo  given star type
@@ -445,7 +444,7 @@ if(STAR.eq.'F0')then
 	fvis = 0.64
 	fir = 0.36
 elseif(STAR.eq.'Sun')then
-	Lum = 1.
+	Lum = 0.94!1.
 	fvis = 0.533
 	fir = 0.467
 elseif(STAR.eq.'K2')then
@@ -503,20 +502,20 @@ orbitcount = 1 ! starting the very first orbit
 	
 DO WHILE((tcalc.le.tend))
     
-! CONVERGENCE MUST BE ACHIEVED  AND  MINIMUM NUMBER OF ORBITS TOO BEFORE LAST EQUALS ONE!
+    ! CONVERGENCE MUST BE ACHIEVED  AND  MINIMUM NUMBER OF ORBITS TOO BEFORE LAST EQUALS ONE!
 	if((compcnvg.le.cnvg).and.(orbitcount.ge.5))then  
 		last = 1  ! this becomes the last orbit
         tlast = 0
     endif
 	
-sumsteps = sumsteps + 1	
+	sumsteps = sumsteps + 1	
 
-!------------------------------------------------------------------	SEASONS	
+	!------------------------------------------------------------------	SEASONS	
 	if (seasonflag.eq.1)then    ! DO WHILE that steps in t.. do while t < tend , t = t + dt.. etc.. if seasons starts with 240 logic if not, starts with mean annua..then go into big loop
 		cose = (cos(peri*pi/180.)+ecc)/(1.+ecc*cos(peri*pi/180.))  
-	  	e = acos(cose) ! eccentric anomaly (in radians)
+	  	e = acos(cose)       ! eccentric anomaly (in radians)
       	m = e - ecc*sin(e)   !**Kepler's Equation (m is the mean anomaly)
-      	tperi = -m/w    !Time of perihelion (vern.eqnx. is 0)in seconds (w = 2*pi*f =  2*pi/Period)
+      	tperi = -m/w         !Time of perihelion (vern.eqnx. is 0)in seconds (w = 2*pi*f =  2*pi/Period)
 
 		232 format(/ 'ORBITAL DATA')
 		233  format(2x,'time (sec)',2x,'true anomaly (deg)',2x,'solar declination (deg)',2x,'orbital distance (cm)',2x,'irradiance (Wm^-2)')
@@ -524,10 +523,12 @@ sumsteps = sumsteps + 1
     	if (tcalc.lt.tend) then
          	t = t + dt
          	tcalc = tcalc + dt
-         	tlast = tlast + dt
+         	tlast = tlast + dt ! tlast is 0 at the last orbit
+       else
+            write(*,*) 'Calculation time has elapsed.'
       	end if
 	  
-	    m = w*(t-tperi)  ! mean anomaly, fraction of orbit from periapsis
+	    m = w*(t-tperi)   ! mean anomaly, fraction of orbit from periapsis
         if (m.gt.2*pi)then 
 		   m = m - 2*pi   ! keeps mean anomaly between 0 and 2*pi radians
 		endif
@@ -540,12 +541,12 @@ sumsteps = sumsteps + 1
 		 	trueanom = 2*pi-trueanom
          endif
 		 
-         r = a*(1-ecc*cos(e)) ! orbital radius (in m)
+         r = a*(1-ecc*cos(e))        ! orbital radius (in m)
          q = q0 * solcon * (a/r)**2  !solar flux on point in orbit	
          thetawin = peri*pi/180 + 3*pi/2
          dec = asin(-sin(obl*pi/180.)*cos(trueanom-thetawin))
          decangle = dec*180./pi
-         Ls = asin(dec/oblrad) ! solar longitude
+         Ls = asin(dec/oblrad)       ! solar longitude
 							
 		255  format(2x,e9.3,6x,f7.3,14x,f7.3,16x,e11.6,13x,f9.3)
 
@@ -566,16 +567,15 @@ sumsteps = sumsteps + 1
             
     else ! if no seasons  
 		!  ============ MEAN ANNUAL CALCULATION with variable obliquity from Ward. Integration is done in the insolation section and uses a function defined at the bottom of this code.
-       q = q0*solcon
+        q = q0*solcon
 
-      if (tcalc.lt.tend)then
-      	t = t + dt
-      	tcalc = tcalc + dt
-      	tlast = tlast +  dt
-      else
-         write(*,*) 'Calculation time has elapsed.'
-         CALL WRAPUP(last,k,ann_tempave,ann_albave,ann_fluxave,ann_irave,ann_wthrateave, &
-	  	ann_pco2ave, ann_ph2oave,ann_psurfave,wco2e,d,pco2,nbelts,modelout,zntempmin, tcalc,orbitcount) 
+       if (tcalc.lt.tend)then
+      	 t = t + dt
+      	 tcalc = tcalc + dt
+      	 tlast = tlast +  dt
+       else
+          write(*,*) 'Calculation time has elapsed.'
+          CALL WRAPUP(last,k,ann_tempave,ann_albave,ann_fluxave,ann_irave,ann_wthrateave,ann_pco2ave, ann_ph2oave,ann_psurfave,wco2e,d,pco2,nbelts,modelout,zntempmin, tcalc,orbitcount) 
       endif
 		  
 	  ! At the beginning of each time step in mean annual calculation, these sums are set to zero. Looking for sums of all Latitudes within a time step
@@ -614,12 +614,13 @@ sumsteps = sumsteps + 1
         tprime(k-1))/((delx(k)/2)*(delx(k-1)/2)*(delx(k)/2 + delx(k-1)/2)) 
                             
 	    phi = log(pco2(k)/3.3e-4)   
-        fco2(k) = pco2(k)/psurf(k)   ! Changed from Ptot to psurf(k), which includes pH2O 
+        fco2(k) = pco2(k)/psurf(k)   ! Fraction of CO2: psurf(k) is the total atm pressure (including H2O) 
               
         if (fco2(k) .lt. 1.e-1)then
+        	! What is pco2r?
        		pco2r(k) = 44*Pdry*fco2(k)/(28*(1-fco2(k))) ! this is the pco2 array with no CO2 diffusion figured in. This is for PALB and OLR calculations only.	   
        	else
-            pco2r(k) = pco2(k) ! at higher pressure CO2 atmospheres don't do the diffusion thing
+            pco2r(k) = pco2(k) ! for higher pressure of atmospheric CO2
         endif
 
 		!==============================================================================   
@@ -658,49 +659,53 @@ sumsteps = sumsteps + 1
 	                   
 	  !----------------------------------------------------------------------c
 	  !  HEAT CAPACITY and SURFACE ALBEDO                    
-
 	  ! DETERMINE ICE FRACTION AS A FUNCTION OF  TEMPERATURE=====================================================
 
       if (temp(k).ge.273.15) then
         fice(k) = 0
-      else if (temp(k).le.239.d0) then  ! Not le. 263.15. This is better in line with Thompson and Barron Table I (1981)
+      ! WHY ??
+      elseif (temp(k).le.239.d0) then  ! Not le. 263.15. This is better in line with Thompson and Barron Table I (1981)
     	fice(k) = 1
       else
         fice(k) = 1. - exp((temp(k)-273.15)/12.5) ! changed from divided by 10 to divided by 12.5 Better fit to Thompson and Barron Table I (1981)
       end if
 		 	 
 	  ! Temperature dependence of the albedo of snow/ice mixtures for both visible and infrared wavelengths (modified from Curry et al. 2001 and Barry et al. (1996) parameterizations)
-	  if(temp(k).le.263.15)then
+	  if(temp(k).le.263.15) then
 		aice_vis = 0.7
-	  elseif((temp(k).gt.263.15).and.(temp(k).lt.273.15))then
-		aice_vis = 0.7 - 0.020*(temp(k) - 263.15)
-	  else ! for 	T = 273.15	 
-		aice_vis = 0.5		 
-	  end if
-
-	  if(temp(k).le.263.15)then
 		aice_nir = 0.5
-	  elseif((temp(k).gt.263.15).and.(temp(k).lt.273.15))then
+	  elseif((temp(k).gt.263.15).and.(temp(k).lt.273.15)) then
+		aice_vis = 0.7 - 0.020*(temp(k) - 263.15)
 		aice_nir = 0.5 - 0.028*(temp(k) - 263.15)
-	  else ! for 	T = 273.15	 
+	  else ! for T = 273.15 or higher 
+		aice_vis = 0.5
 		aice_nir = 0.22		 
-	  end if		 
+	  end if
+! 
+! 	  if(temp(k).le.263.15) then
+! 		aice_nir = 0.5
+! 	  elseif((temp(k).gt.263.15).and.(temp(k).lt.273.15))then
+! 		aice_nir = 0.5 - 0.028*(temp(k) - 263.15)
+! 	  else ! for 	T = 273.15	 
+! 		aice_nir = 0.22		 
+! 	  end if		 
 				 	 
 	  ! ALTERNATE VIS ICE ALBEDO FEEDBACK..		 		 
 	  snowalb = aice_nir*fir + aice_vis*fvis
-  	  if(icealbco2(k).gt.0.1)snowalb = icealbco2(k)  ! If CO2 is condensing within latitude band, that becomes the new ice albedo for that band..c-rr 6/11/2019
-      if (imco2i(k).eq.1) fcloud(k) = ccloud(k)  ! if temperature is very low, then use CO2 ice cover
+	  ! Where is this calculated?
+  	  if(icealbco2(k).gt.0.1)snowalb = icealbco2(k)   ! If CO2 is condensing within latitude band, that becomes the new ice albedo for that band.
+      if (imco2i(k).eq.1) fcloud(k) = ccloud(k)       ! if temperature is very low, then use CO2 ice cover
       if (ann_tempave.ge.263)fcloud(k) = h2ocloud(k)  ! if water clouds are forming, use water cloud cover
 		 
       ! ocean albedo
       if (temp(k).ge.273.15) then
-      	oceanalb = h20alb(int(z))  ! ocean albedo 
+      	oceanalb = h20alb(int(z))      ! ocean albedo 
       elseif (temp(k).le.239.d0) then  ! Now ocean albedo has snow/ice albedo at temps below 239 K, not 263.15 K
 		oceanalb = snowalb
       else ! between 239 and 273 K
         oceanalb = h20alb(int(z))*(1. - fice(k)) + snowalb*fice(k)
       endif		 		 
-!====================================================================
+	  !====================================================================
  
       acloud(k) = alpha + beta*zrad
       if (acloud(k).le.0)acloud(k) = 0.1 	  
@@ -708,27 +713,27 @@ sumsteps = sumsteps + 1
 	  	! LAND WITH STABLE SNOW COVER; SEA-ICE WITH SNOW COVER
       	landalb = snowalb*landsnowfrac + groundalb*(1 - landsnowfrac)
       	icealb(k) = snowalb
-      	ci = 1.05e7  ! thermal heat capacity of ice  (cl and  cw is the same for  land and water,  respectively)
+      	ci = 1.05e7  ! thermal heat capacity of ice  (cl and  cw is the same for  land and water, respectively)
       	c(k) = (1-fice(k))*focean(k)*cw + fice(k)*focean(k)*ci + (1 - focean(k))*cl
       	fwthr = 0.  ! fraction of surface for weathering
-	  	surfalb(k) = max(((1-focean(k))*landalb + &
-      	focean(k)*((1-fice(k))*oceanalb + fice(k)*icealb(k))), &
-      	fcloud(k)*acloud(k))  
+	  	surfalb(k) = 0.6!max(((1-focean(k))*landalb + &
+      	!focean(k)*((1-fice(k))*oceanalb + fice(k)*icealb(k))), &
+      	!fcloud(k)*acloud(k))  
       elseif(temp(k).ge.273.15)then ! if temperature are above 273.15 K then
       	landalb = groundalb
       	fice(k) = 0.
       	fwthr = 1.       !**100% if T > 273K, 0% otherwise
       	c(k) = focean(k)*cw + (1 - focean(k))*cl
-	  	surfalb(k) = (1-fcloud(k))*((1-focean(k))*landalb + &  
-      	focean(k)*((1-fice(k))*oceanalb + fice(k)*icealb(k))) + &
-      	fcloud(k)*acloud(k)     
+	  	surfalb(k) = 0.6!(1-fcloud(k))*((1-focean(k))*landalb + &  
+      	!focean(k)*((1-fice(k))*oceanalb + fice(k)*icealb(k))) + &
+      	!fcloud(k)*acloud(k)     
 	  elseif((temp(k).gt.263.15).and.(temp(k).lt.273.15))then
 	  	landalb = groundalb
       	fwthr = 1. 
 	  	c(k) = focean(k)*cw + (1 - focean(k))*cl	  
-	  	surfalb(k) = max(((1-focean(k))*landalb + &
-      	focean(k)*((1-fice(k))*oceanalb + fice(k)*icealb(k))), &
-      	fcloud(k)*acloud(k))
+	  	surfalb(k) = 0.6! max(((1-focean(k))*landalb + &
+      	!focean(k)*((1-fice(k))*oceanalb + fice(k)*icealb(k))), &
+      	!fcloud(k)*acloud(k))
       endif 
 
  	  !=======================================================================     
@@ -739,7 +744,8 @@ sumsteps = sumsteps + 1
 
 	  !----------------------------------------------------------------------c
       !  CO2 CLOUDS/ICE (Determines if atmospheric conditions allow for CO2 cloud/ice formation and says where they are)
-	  if (last.eq.1) then  ! If last eq. 1 ONLY CHECKS FOR CO@ CLOUDS/ICE AT LAST ORBIT/STEP 
+	  if (last.eq.1) then  ! If last eq. 1 ONLY CHECKS FOR CO@ CLOUDS/ICE AT LAST ORBIT/STEP IRENE
+	  	!print *, "LAST ORBIT!!!!!!!!!!!!!!!!!!"
 	  	K1 = tempstrat(TL, PR)
 	  	K2 = tempstrat(TR, PR)
 	  	K3 = tempstrat(TL, PL)
@@ -752,23 +758,23 @@ sumsteps = sumsteps + 1
 	  	cptot = fn2*cpn2 + fco2(k)*0.5*(cpco2(1)+cpco2(2)) ! total specific heat
 	  	gamd=g/cptot  ! dry lapse rate
       	nh = 0
-	  	tlapse =  0.5*gamd ! assume lapse rate is half dry lapse rate (relatively intermediate value close to both critical and moist lapse rates. Stone and Carlson (1979) For Earth, close to average!)	  
+	  	tlapse =  0.5*gamd           ! assume lapse rate is half dry lapse rate (relatively intermediate value close to both critical and moist lapse rates. Stone and Carlson (1979) For Earth, close to average!)	  
 	  	htemp = temp(k) - tlapse*nh
-	  	if (htemp.lt.tstrat)then   ! which skips the entire do while loop condition  BELOW because CO2 clouds/ice do not form with this condition 
+	  	if (htemp.lt.tstrat)then     ! skips the entire do while loop condition BELOW because CO2 clouds/ice do not form with this condition 
       		CALL WEATHERING2(area, k, pco2, nbelts, focean, fwthr, wthrate, warea, wco2,wco2e,v,dt, temp)  
         endif ! ends htemp/tstrat if logic
 	  
 		!=============================================================================	  
-	  	do while(htemp.ge.tstrat)  
+	  	do while(htemp.ge.tstrat)  ! CO2 clouds/ ice loop
 
       		hpco2 = pco2(k)*((temp(k)-tlapse*nh)/temp(k))**(avemol*100*g/(1.38e-16*tlapse*1.e-5))
 	   
 	        ! SUBROUTINE SATCO2 from Jim Kasting "earthtem_0.f"
-	        !   VAPOR PRESSURE OVER LIQUID...According to Co2 phase diagram, CO2 clouds would form under  these conditions
+	        !   VAPOR PRESSURE OVER LIQUID. According to Co2 phase diagram, CO2 clouds would form under  these conditions
 	        if (htemp.gt.216.56)then 
             	psl = 3.128082 - 867.2124/htemp + 1.865612e-2*htemp - 7.248820e-5*htemp**2 + 9.3e-8*htemp**3
 
-            !  VAPOR PRESSURE OVER SOLID ..According to CO2 phase diagram, CO2 ice only would form under these condition
+            !  VAPOR PRESSURE OVER SOLID. According to CO2 phase diagram, CO2 ice only would form under these condition
             elseif (htemp.lt.216.56)then  
            		! (Altered to match vapor pressure over liquid at triple point)
             	psl = 6.760956-1284.07/(htemp-4.718) + 1.256e-4*(htemp-143.15)
@@ -777,16 +783,17 @@ sumsteps = sumsteps + 1
 			patm = 10.**psl
             psat = 1.013*patm
 			
-        	imco2i(k) = 0  ! only atmospheric co2 ices need to be initialized after each time step..c-rr 6/5/2019
-			ccloud(k) = 0. ! if no CO2 condensing, CO2 clous are equal to zero
+        	imco2i(k) = 0  ! Atmospheric CO2 ice flag re-initialization
+			ccloud(k) = 0. ! If no CO2 condensing, CO2 clous are equal to zero
 		
-        	if ((hpco2.ge.psat).and.(htemp.lt.216.56)) then      !**co2 ices form
-        		imco2i(k) = 1  ! this labels which latitude CO2 ices form. 
+        	if ((hpco2.ge.psat).and.(htemp.lt.216.56)) then    !**co2 ices form
+        		imco2i(k) = 1                                  ! this labels which latitude CO2 ices form
         		ccloud(k) = 0.5
         		cloudir(k) = -0.0
         		fcloud(k) = ccloud(k)
                 
         		if(last.eq.1)then
+        			! *, "LAST ORBIT!!!!"
           			write(80,*)zrad, ccloud(k), temp(k), k
         		endif
 		 		
@@ -802,22 +809,21 @@ sumsteps = sumsteps + 1
 	      			exit  ! THIS do while loop is  exited 
           		endif 
 	  
-         	elseif ((hpco2.ge.psat).and.(htemp.gt.216.56).and.(hpco2.ge.5.1)) then  !** liquid co2 forms so long as PCO2 gt. 5.1 bar and above psat curve c-rr 6/5/2019
+         	elseif ((hpco2.ge.psat).and.(htemp.gt.216.56).and.(hpco2.ge.5.1)) then  !** liquid co2 forms so long as PCO2 gt. 5.1 bar and above psat curve 
 	     			imco2l(k) = 1
 	     			CALL WEATHERING2(area, k, pco2, nbelts, focean, fwthr, wthrate, warea, wco2,wco2e,v,dt, temp)
        				exit   ! THIS do while loop is exited		    
-        	endif  ! end if condition for CO2 cloud formation
-       enddo ! ends do  while of htemp and tstrat loop!!
+        	endif  		   ! end if condition for CO2 cloud formation
+       enddo 		       ! ends do  while of htemp and tstrat loop!!
 	  
 	   !=============================================================================	
 	   
 	   !       LOGIC FOR CO2 ICE CONDENSATION ON SURFACE
-	   !   VAPOR PRESSURE OVER LIQUID...According to Co2 phase diagram, liquid CO2 would form under  these conditions
-	    if (temp(k).gt.216.56)then 
-			psl = 3.128082 - 867.2124/temp(k) + 1.865612e-2*temp(k) - &
-            7.248820e-5*temp(k)**2 + 9.3e-8*temp(k)**3			
-            !  VAPOR PRESSURE OVER SOLID ..According to CO2 phase diagram, CO2 ice clouds only would form under these condition
-        elseif (temp(k).lt.216.56)then  
+	   !   VAPOR PRESSURE OVER LIQUID: According to Co2 phase diagram, liquid CO2 would form under these conditions
+	    if (temp(k).gt.216.56) then 
+			psl = 3.128082 - 867.2124/temp(k) + 1.865612e-2*temp(k) - 7.248820e-5*temp(k)**2 + 9.3e-8*temp(k)**3			
+        !  VAPOR PRESSURE OVER SOLID: According to CO2 phase diagram, CO2 ice clouds only would form under these condition
+        elseif (temp(k).lt.216.56) then  
             ! (Altered to match vapor pressure over liquid at triple point)
             psl = 6.760956-1284.07/(temp(k)-4.718) + 1.256e-4*(temp(k)-143.15)
         endif 
@@ -826,20 +832,20 @@ sumsteps = sumsteps + 1
         psat = 1.013*patm		
         pressi = pco2(k) 
 
-        if ((pco2(k).ge.psat).and.(temp(k).lt.216.56)) then      !**co2 ices form on the surface
-        	imco2s(k) = 1  ! this labels which latitude CO2 ices form. 
-        	TCOND = 3148.42/(16.178 - log(pco2(k)))  ! condensation temperature
+        if ((pco2(k).ge.psat).and.(temp(k).lt.216.56)) then !**co2 ices form on the surface
+        	imco2s(k) = 1                                   ! this labels which latitude CO2 ices form. 
+        	TCOND = 3148.42/(16.178 - log(pco2(k)))         ! condensation temperature
     
         	!print *, temp(36), pco2(36), psat,imco2s(36) ! weird, why is psat equal to pco2 and imco2s = 0?
                 
         	if(last.eq.1)write(70,*)temp(k), pco2(k), k
 		
-			!   THIS CO2 ICE LOGIC IS COMMENTED OUT FOR NOW
+			!   CO2 ice on the surface
         	newice(k) = pco2(k) - psat	
-        	if(newice(k).lt.0)newice(k) = 0.0 ! c-rr 6/5/2019
+        	if(newice(k).lt.0)newice(k) = 0.0      
 			zice(k) = 101325.*newice(k)/(g*1600.)  ! thickness of CO2 ice formed in latitude band(in meters). 1600 kg/m^3 is the density of dry ice
 			zicesum(k) = zice(k) + zicesum(k)
-			icealbco2(k) = 0.6 ! 0.35 is the albedo for CO2 ice (Warren et al. 1990), replacing that of water ice
+			icealbco2(k) = 0.6                     ! WHY?? 0.35 is the albedo for CO2 ice (Warren et al. 1990), replacing that of water ice
 			subl(k) = 0.
 			liql(k) = 0.       
 			pco2(k) = pco2(k) -  newice(k)  ! calculate new pco2 at latitude band
@@ -852,19 +858,19 @@ sumsteps = sumsteps + 1
 
         elseif ((pco2(k).lt.psat).and.(temp(k).ge.216.56).and.(zicesum(k).gt.150.))then ! any liquid evaporates back into the atmosphere, so long as liquid CO2 glaciers form above 150m thick CO2 ice threshold. c-rr 6/5/2019
 
-			TCOND = 3148.42/(16.178 - log(pco2(k)))  ! condensation temperature
+			TCOND = 3148.42/(16.178 - log(pco2(k)))        ! condensation temperature
             liql(k) = (zicesum(k)- 150.)*(g*1600.)/101325. ! remainder melts off glacier and CO2 pressure that evaporates back up to atmosphere (in bar)  
-            pco2(k) = pco2(k) +  liql(k)  ! calculate new pco2 at latitude band
+            pco2(k) = pco2(k) +  liql(k)                   ! calculate new pco2 at latitude band
             subl(k) = 0.
             newice(k) = 0.
 
-        elseif ((pco2(k).lt.psat).and.(temp(k).lt.216.56).and.(zicesum(k).gt.val))then ! ice sublimates back into atmosphere as long as there is some surface ice.. c-rr 6/15/2019
+        elseif ((pco2(k).lt.psat).and.(temp(k).lt.216.56).and.(zicesum(k).gt.val))then ! ice sublimates back into atmosphere as long as there is some surface ice.
                 
             TCOND = 3148.42/(16.178 - log(pco2(k)))  ! condensation temperature
-            subl(k) = zicesum(k)*(g*1600.)/101325 ! in bar
-            subl(k) = min(subl(k), pco2i - pco2(k)) ! doesn't allow it to sublimate so much ice into the atmosphere so that it exceeds the original amount the atmosphere already had..
-            pco2(k) = pco2(k) +  subl(k)  ! calculate new pco2 at latitude band
-            zicesum(k) = 0.0 ! reset ice thickness in this latitude band to zero. It's all been sublimated
+            subl(k) = zicesum(k)*(g*1600.)/101325.   ! in bar
+            subl(k) = min(subl(k), pco2i - pco2(k))  ! doesn't allow so much ice sublimation into the atmosphere so that it exceeds the original amount the atmosphere already had.
+            pco2(k) = pco2(k) +  subl(k)             ! calculate new pco2 at latitude band
+            zicesum(k) = 0.0                         ! reset ice thickness in this latitude band to zero (all been sublimated)
             liql(k) = 0. 
             newice(k) = 0.
 
@@ -876,7 +882,7 @@ sumsteps = sumsteps + 1
         delpress = pressi - pressf  ! change in pressure
                 
 		!========================================================================================
-        ! If there is no surface ice accumulation in given band, then turn CO2 surface ice flag in that band to "zero." c-rr 6/6/2019
+        ! If there is no surface ice accumulation in given band, then turn CO2 surface ice flag in that band to "zero." 
         if(imco2s(k).eq.1)then
         	if(zicesum(k).le.0)then
             	imco2s(k) = 0
@@ -884,19 +890,7 @@ sumsteps = sumsteps + 1
         endif	 
 		!=====================================================================================	
 
-!                  if((imco2s(34).eq.1).or.(imco2s(35).eq.1).or.(imco2s(36).eq.1).or.(imco2s(1).eq.1).or.(imco2s(2).eq.1).or.(imco2s(3).eq.1))then   
-!                         do k = 1,nbelts
-!                         sumpco2 = sumpco2 + pco2(k)*area(k)  ! summing up pCO2 in all latitude bands
-!                        enddo
-! 
-! ! Then to check that the pressures have been equilibrated across the planet...
-!                       do k = 1,nbelts
-!                       pco2(k) = sumpco2  ! assigning same total CO2 pressure to every latitude band --> shouldn't there be a \nbelts?
-!                       enddo
-! 
-!                  endif
-
-	  endif ! ends last logic for CO2 clouds/ice only checking last step/orbit
+	  endif ! ends last logic for CO2 clouds/ice only checking last step/orbit IRENE
                 
 	  ! QUADRILINEAR INTERPOLATION FOR PLANETARY ALBEDO. 
       as = surfalb(k)  
@@ -965,17 +959,17 @@ sumsteps = sumsteps + 1
 	avemol = mp*(28.*Pdry + 44.*ann_pco2ave)/(Pdry+ ann_pco2ave) ! molecular weight expression
 	hcp = (hcpn2*Pdry + ann_pco2ave*hcpco2)/(Pdry+ ann_pco2ave)  ! new hcp expression
 	d = fracd0(k)*d0*((Pdry+ ann_pco2ave)/po)*((avemol0/avemol)**2)*(hcp/hcp0)* latefrac*(rot0/rot)**2
-	ell = 1.      ! This is surface emissivity..T goes up when ell goes down. Maybe at high obliquity, ell should be considerably smaller..nope.changing ell too small a change 
+	ell = 1.      ! Surface emissivity. T goes up when ell goes down. 
 	if (((delpress).ge.(abs(1.d-8))).and.(imco2s(k).eq.1))then 
-		! If atmospheric CO2 condenses, latent heat is released to warm atmospheres.. If surface ice sublimates, then heat is absorbed by the surface and atmosphere cools       
-		temp(k) = (d*t2prime(k)- ell*ir(k)+s(k)*(1-atoa(k)) + LCO2*(area(k)*delpress*101325./g)/dt)*dt/c(k) + temp(k)  !main energy balance equation.. quick test with CO2 latent heat exchange/mass loss Nakamura Tajika (2002)..latent heat of CO2 5.9e5 J/kg (e.g. Forget et al. 1998). C(K) has units of J/m^2/K according to WK97 
+		! If atmospheric CO2 condenses, latent heat is released to warm atmospheres. If surface ice sublimates, then heat is absorbed by the surface and atmosphere cools       
+		temp(k) = (d*t2prime(k)- ell*ir(k)+s(k)*(1-atoa(k)) + LCO2*(area(k)*delpress*101325./g)/dt)*dt/c(k) + temp(k)  !main energy balance equation. quick test with CO2 latent heat exchange/mass loss Nakamura Tajika (2002)..latent heat of CO2 5.9e5 J/kg (e.g. Forget et al. 1998). C(K) has units of J/m^2/K according to WK97 
 	else
 		temp(k) = (d*t2prime(k)-ir(k)+s(k)*(1-atoa(k)))*dt/c(k) + temp(k)  !main energy balance equation
 	endif
       
 	if(temp(k).le.150)temp(k) = 150. 
 	if(temp(k).ge.390)temp(k) = 390.
-    !print *, temp(36), pco2(36)
+    !print *, temp(36),pco2(36) IRENE
 
 	!==========================================================================
     RH_s = 0.77 ! if Earth-like continental configuration RH
@@ -983,7 +977,7 @@ sumsteps = sumsteps + 1
 
     CALL PSATH2O(temp(k), ph2o(k))
     ph2o(k) = RH_s*ph2o(k)  ! real surface ph2o with RH adjustment
-	if(temp(k).lt.273.)ph2o(k) = 1.e-20 ! c-rr 11/13/2019... instead of ann_tempave lt. 273.. temp(k) .lt. 273 L..etc.
+	if(temp(k).lt.273.)ph2o(k) = 1.e-20 ! instead of ann_tempave lt. 273.. temp(k) .lt. 273 L..etc.
 	psurf(k) = Pdry + ph2o(k) + pco2(k) ! average total surface pressure at each latitude (in bar)
 	
 	!=============== CALCULATING THE CONVECTIVE HEAT FLUX (FC)==============================================
@@ -1038,10 +1032,10 @@ sumsteps = sumsteps + 1
       zntempsum(k) = zntempsum(k) + temp(k) 
     endif  ! ends if logic for zonal statistics===========================================
 
-	CO2ps(k) = pco2initial - pco2(k) ! CO2 pressure on the surface for given latitude for given time step
-	sumnewice = sumnewice + CO2ps(k) *area(k) !total amount of ice
+	CO2ps(k) = pco2initial - pco2(k)          ! CO2 pressure on the surface for given latitude for given time step
+	sumnewice = sumnewice + CO2ps(k) *area(k) ! Total amount of ice
 
-	if(last.eq.1)write(110,*)fcloud(k), ccloud(k), h2ocloud(k), temp(k), imco2i(k) ! c-rr 11/13/2019... TEST for H2O and CO2 clouds.. are they working??
+	if(last.eq.1)write(110,*)fcloud(k), ccloud(k), h2ocloud(k), temp(k), imco2i(k) ! TEST for H2O and CO2 clouds.. are they working??
 
 	ENDDO  
 	!======**end of BIG belt loop=================================================  
@@ -1054,9 +1048,9 @@ sumsteps = sumsteps + 1
             sumpco2 = sumpco2 + pco2(k)*area(k)  ! summing up pCO2 in all latitude bands
         enddo
 
-		! Then to check that the pressures have been equilibrated across the planet...
+		! Check that the pressures have been equilibrated across the planet
     	do k = 1,nbelts
-        	pco2(k) = sumpco2  ! assigning same total CO2 pressure to every latitude band 
+        	pco2(k) = sumpco2  ! assign same total CO2 pressure to every latitude band 
     	enddo
     endif
        
@@ -1065,7 +1059,7 @@ sumsteps = sumsteps + 1
     temp(0) = temp(1)   
     temp(nbelts+1) = temp(nbelts)
 	!----------------------------------------------------------------------------------	  
-    if((last.eq.1).or.(tlast.ge.twrite))then  ! do this stuff if in the last ORBIT or when tlast <= twrite
+    if((last.eq.1).or.(tlast.ge.twrite))then  ! do this if in the last ORBIT or when tlast <= twrite
       tlast = 0.  ! resets tlast
 
 	!  EQUINOXES AND SOLSTICES
@@ -1090,7 +1084,7 @@ sumsteps = sumsteps + 1
          
  	630  format(3x,f6.2,9x,36(3x,i1),9x,f7.3)
  	  
-    endif !! ends last twrite logic SEASONS IF STUFF========================================
+    endif ! ends last twrite logic SEASONS  
 	!----------------------------------------------------------------------c   
 	!=====================================================================================
 	!  GLOBAL AVERAGING (Done every time step)
@@ -1126,7 +1120,7 @@ sumsteps = sumsteps + 1
 	  
 	!====================================================================================================================================================================
 
-      if(t.lt.P)then   !**one orbit since last averaging.. do nothing more and go to the end to restart the loop
+      if(t.lt.P)then   !**one orbit since last averaging.
 		
 	  !  ANNUAL AVERAGING (comes here after the end of each orbit=====================================================
 	  ! Occurs after ONE full stellar revolution
@@ -1142,14 +1136,15 @@ sumsteps = sumsteps + 1
       	ann_h2oave = h2oavesum/nstep
         if(ann_tempave.ge.273.15)then                    
         	landsnowfrac = 0.5  ! And cloudir(k) determined by H2O cloud parameterization earlier for warm temperatures..
-		elseif((ann_tempave.ge.263).and.(ann_tempave.lt.273))then  ! c-rr 6/19/2019
-			cloudir(k) = 0.0  ! assuming that H2O cloud IR contribution nil just below freezing point c-rr 11/13/2019
+		elseif((ann_tempave.ge.263).and.(ann_tempave.lt.273))then  
+			cloudir(k) = 0.0  ! assuming that H2O cloud IR contribution nil just below freezing point 
             landsnowfrac = 0.5
         elseif(ann_tempave.lt.263)then
-            landsnowfrac = 1.0 ! don't let it get ice-covered on land until temperatures are under 263. Change to 0.5 if has Earth-land or a planet with smaller water inventory..
-        endif  ! for cold temperatures, cloudir(k) is now due to CO2 clouds, not H2O clouds..
+            landsnowfrac = 1.0 ! don't let land get ice-covered until temperatures are under 263. Change to 0.5 if has Earth-land or a planet with smaller water inventory.
+        endif  ! for cold temperatures, cloudir(k) is due to CO2 clouds, not H2O clouds.
 
       	ann_pco2ave = pco2avesum/nstep 
+      	!print *, ann_pco2ave, ann_co2iceave
 	  	ann_ph2oave = ph2oavesum/nstep
 	  	ann_psurfave = psurfavesum/nstep
       	ann_fracd0ave = fracd0avesum/nstep
@@ -1182,11 +1177,11 @@ sumsteps = sumsteps + 1
 !====================================================================================================================================	  
 		 if(last.eq.1)exit ! if last is 1 when it comes here a second time, EXIT the DO WHILE loop and write out the ZONAL STATISTICS.
 		 
-		 !  ADJUST PCO2 EVERY 5 ORBITAL CYCLES.. WHY IS THIS LOGIC DONE????
+		 !  ADJUST PCO2 EVERY 5 ORBITAL CYCLES
 		 !---------------------------------------	  	  
       	 if(nwthr.ge.5)then
          	nwthr = 0 ! after 5th orbit, restart counter to  0
-      		wthr = fdge*wco2e*ann_wthrateave ! gives the actual global weathering rate (wco2) in g/yr.. (wthr = wco2 = wco2e*wco2/wco2e) with fudge factor (fdge) included
+      		wthr = fdge*wco2e*ann_wthrateave ! gives the global weathering rate (wco2) in g/yr.. (wthr = wco2 = wco2e*wco2/wco2e) with fudge factor (fdge) included
       		if (wthr.lt.v)then
       			if(wthr.lt.1.e-2) then
 	  				wthr=1.
@@ -1201,7 +1196,7 @@ sumsteps = sumsteps + 1
    
 	    compcnvg =abs(prevtempave-ann_tempave) ! compare with convergence criteria
         prevtempave = ann_tempave 
-		! GET READY TO  SET LAST eq. 1.. WILL  STOP ONLY AFTER ORBITCOUNT IS REACHED                         
+		! GET READY TO  SET LAST eq. 1. WILL  STOP ONLY AFTER ORBITCOUNT IS REACHED                         
 
       	fluxavesum = 0.  ! all of these are reset before NEXT (FINAL) orbit (except co2cldavesum) in order to get zonal statistics
       	albavesum = 0.
@@ -1224,7 +1219,7 @@ sumsteps = sumsteps + 1
 END DO  ! ends BIG DO  WHILE LOOP
 !=======================================================================================================
 	   	   
-if (last.eq.1) then  ! once everything else is done come here and  finishing write up SUMMARY AND FINAL ZONAL  STATS
+if (last.eq.1) then  ! once everything else is done write up SUMMARY AND FINAL ZONAL  STATS
 	CALL WRAPUP(last, k,ann_tempave, ann_albave, ann_fluxave, ann_irave, ann_wthrateave, &
 	ann_pco2ave, ann_ph2oave, ann_psurfave, wco2e,d, pco2, nbelts, modelout,zntempmin, tcalc, orbitcount)
 	  
@@ -1294,6 +1289,8 @@ END ! Ends program
        
        
        
+       
+              
        
 !-------------------------------------------------------------------------------------------
 !-------------------------------------------------------------------------------------------
