@@ -1,2 +1,0 @@
-ifort -i8 -r8 -align all -i-dynamic -mcmodel=large total_ebm.f90 geog.f90 weathering.f90 keplereqn.f90 qtrap.f90 trapzd.f90 wrapup.f90
-./a.out
