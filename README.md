@@ -10,4 +10,4 @@ To run the code, type the following:
 
 make
 
-./driver.f90
+./driver
